@@ -54,26 +54,28 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         Log.d(TAG, "Binding meal " + movie.getTitle() + " to position " + position);
 
         holder.TitleTextView.setText(movie.getTitle());
+        //Grabs top 3 genres --> if it doesnt have 3 genres it throws an error
         String genres = movie.getGenres().get(0) + " " + movie.getGenres().get(1) + " " + movie.getGenres().get(2);
         holder.GenreTextView.setText(genres);
         holder.RatingTextView.setText("" + movie.getRating());
         holder.DateTextView.setText(movie.getReleaseDate());
-        // Glide.with(this.context).load(this.movies.get(position).getImageUrl()).fallback(R.drawable.ic_unknown).error(R.drawable.ic_unknown).into(holder.image);
 
         Glide.with(holder.imageView)
                 .load(this.movies.get(position).getImageUrl())
                 .placeholder(R.drawable.ic_unknown)
                 .into(holder.imageView);
 
-//        holder.layout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Movie movie = movies.get(position);
-//                Intent intent = new Intent(context, MovieDetails.class);
-//                intent.putExtra("meal", meal);
+//OnClick
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Movie movie = movies.get(position);
+//                Intent intent = new Intent(context, .class);
+//                intent.putExtra("movie", movie);
 //                context.startActivity(intent);
-//            }
-//        });
+                Log.i(TAG, ("Clicked on " + movie.getTitle()));
+            }
+        });
     }
 
 
