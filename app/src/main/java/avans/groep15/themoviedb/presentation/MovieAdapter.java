@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import avans.groep15.themoviedb.R;
 import avans.groep15.themoviedb.domain.Movie;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
@@ -42,25 +43,32 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
         Log.d(TAG, "Creating meal recycler view");
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View view = inflater.inflate(R.layout.meal_item, viewGroup, false);
+        View view = inflater.inflate(R.layout.movie_item, viewGroup, false);
         return new MovieViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-//        Movie movie = this.movies.get(position);
-//
-//        Log.d(TAG, "Binding meal " + movie.getTitle() + " to position " + position);
-//
-//        holder.name.setText(meal.getName());
-//        holder.price.setText(getPrice(meal.getPrice()));
-//        holder.date.setText(getDate(meal.getDateTime()));
-//        Glide.with(this.context).load(this.meals.get(position).getImageUrl()).fallback(R.drawable.ic_unknown).error(R.drawable.ic_unknown).into(holder.image);
-//
+        Movie movie = this.movies.get(position);
+
+        Log.d(TAG, "Binding meal " + movie.getTitle() + " to position " + position);
+
+        holder.TitleTextView.setText(movie.getTitle());
+        String genres = movie.getGenres().get(0) + " " + movie.getGenres().get(1) + " " + movie.getGenres().get(2);
+        holder.GenreTextView.setText(genres);
+        holder.RatingTextView.setText("" + movie.getRating());
+        holder.DateTextView.setText(movie.getReleaseDate());
+        // Glide.with(this.context).load(this.movies.get(position).getImageUrl()).fallback(R.drawable.ic_unknown).error(R.drawable.ic_unknown).into(holder.image);
+
+        Glide.with(holder.imageView)
+                .load(this.movies.get(position).getImageUrl())
+                .placeholder(R.drawable.ic_unknown)
+                .into(holder.imageView);
+
 //        holder.layout.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//               Movie movie = movies.get(position);
+//                Movie movie = movies.get(position);
 //                Intent intent = new Intent(context, MovieDetails.class);
 //                intent.putExtra("meal", meal);
 //                context.startActivity(intent);
@@ -71,24 +79,26 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public int getItemCount() {
-        return this.movies.size();
+        return movies.size();
     }
 
 
-
-
-
-
-
-
-
     class MovieViewHolder extends RecyclerView.ViewHolder {
-
+        private ImageView imageView;
+        private TextView TitleTextView;
+        private TextView GenreTextView;
+        private TextView DateTextView;
+        private TextView RatingTextView;
 
 
         public MovieViewHolder(View view) {
             super(view);
 
+            imageView = view.findViewById(R.id.movieImage);
+            TitleTextView = view.findViewById(R.id.movieTitle);
+            GenreTextView = view.findViewById(R.id.movieGenre);
+            DateTextView = view.findViewById(R.id.movieDate);
+            RatingTextView = view.findViewById(R.id.movieRating);
         }
     }
 
