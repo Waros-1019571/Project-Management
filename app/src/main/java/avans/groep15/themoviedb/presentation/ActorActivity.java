@@ -1,5 +1,4 @@
 package avans.groep15.themoviedb.presentation;
 
-public class MovieActivity {
-
+public class ActorActivity {
 }
