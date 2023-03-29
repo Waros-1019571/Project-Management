@@ -65,14 +65,7 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        //   MenuItem menuItem = findViewById(R.id.dropdown_item1);
-//        View actionView = menuItem.getActionView();
 
-        return true;
-    }
     @Override
     public void hasLoaded(List<Movie> movies) {
         for (Movie movie : movies) {
