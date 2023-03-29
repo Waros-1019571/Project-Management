@@ -11,4 +11,6 @@
     <string name="list_add">List add</string>
     <string name="title">Title</string>
     <string name="add">Add</string>
+    <string name="list_management">List management</string>
+    <string name="create_list">Create List</string>
 </resources>
