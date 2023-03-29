@@ -42,8 +42,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
         Log.d(TAG, "Creating meal recycler view");
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View view = inflater.inflate(R.layout.meal_item, viewGroup, false);
-        return new MovieViewHolder(view);
+        //View view = inflater.inflate(R.layout.meal_item, viewGroup, false);
+        //return new MovieViewHolder(view);
+        return null;
     }
 
     @Override
