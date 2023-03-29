@@ -1,6 +1,7 @@
 package avans.groep15.themoviedb.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -14,11 +15,15 @@ import avans.groep15.themoviedb.domain.Movie;
 
 public class MainActivity extends AppCompatActivity implements MovieListener {
 
+    //private RecyclerView recyclerView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         new GetMovieTask(this).execute();
+        //recyclerView.findViewById(R.id.recyclerView);
     }
 
     @Override
