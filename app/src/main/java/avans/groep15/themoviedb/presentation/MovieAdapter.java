@@ -18,6 +18,8 @@ import com.bumptech.glide.Glide;
 
 import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -31,7 +33,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private final Locale locale = new Locale.Builder().setLanguage("nl").setRegion("NL").build();
 
     private final Context context;
-    private final List<Movie> movies;
+    private List<Movie> movies;
 
     public MovieAdapter(Context context, List<Movie> movies) {
         this.context = context;
@@ -50,30 +52,32 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         Movie movie = this.movies.get(position);
+        Log.d(TAG, "Binding meal " + movie.getOriginal_title() + " to position " + position);
 
-        Log.d(TAG, "Binding meal " + movie.getTitle() + " to position " + position);
 
-        holder.TitleTextView.setText(movie.getTitle());
+        holder.TitleTextView.setText(movie.getOriginal_title());
         //Grabs top 3 genres --> if it doesnt have 3 genres it throws an error
-        String genres = movie.getGenres().get(0) + " " + movie.getGenres().get(1) + " " + movie.getGenres().get(2);
-        holder.GenreTextView.setText(genres);
-        holder.RatingTextView.setText("" + movie.getRating());
-        holder.DateTextView.setText(movie.getReleaseDate());
+        //         String genres = movie.getGenres().get(0) + " " + movie.getGenres().get(1) + " " + movie.getGenres().get(2);
+        //         holder.GenreTextView.setText(genres);
+        holder.RatingTextView.setText("" + movie.getVote_average());
+        holder.DateTextView.setText("" + movie.getRelease_date());
 
+        //SET IMAGE
+        String posterPath = "https://image.tmdb.org/t/p/w500" + this.movies.get(position).getPoster_path();
         Glide.with(holder.imageView)
-                .load(this.movies.get(position).getImageUrl())
+                .load(posterPath)
                 .placeholder(R.drawable.ic_unknown)
                 .into(holder.imageView);
-
 //OnClick
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Movie movie = movies.get(position);
-//                Intent intent = new Intent(context, .class);
-//                intent.putExtra("movie", movie);
-//                context.startActivity(intent);
-                Log.i(TAG, ("Clicked on " + movie.getTitle()));
+                Intent intent = new Intent(context, MovieActivity.class);
+                intent.putExtra("movieID", movie.getId());
+                intent.putExtra("MovieTitle", movie.getOriginal_title());
+                context.startActivity(intent);
+                Log.i(TAG, ("Clicked on " + movie.getOriginal_title()));
             }
         });
     }
@@ -82,6 +86,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public int getItemCount() {
         return movies.size();
+    }
+
+
+    public void setMeals(List<Movie> movies) {
+        this.movies = movies;
+        notifyDataSetChanged();
     }
 
 

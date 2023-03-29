@@ -1,28 +1,31 @@
 package avans.groep15.themoviedb.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import avans.groep15.themoviedb.R;
+import avans.groep15.themoviedb.application.asynctasks.GetMovieTask;
+import avans.groep15.themoviedb.application.listeners.MovieListener;
 import avans.groep15.themoviedb.domain.Movie;
+import avans.groep15.themoviedb.domain.responses.MovieResult;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MovieListener {
+
     private ArrayList<Movie> movies;
     private final static String TAG = MainActivity.class.getSimpleName();
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
+    private MovieResult movieResult;
 
 
     @Override
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        new GetMovieTask(this).execute();
 
 
         //temp genres
@@ -48,31 +52,38 @@ public class MainActivity extends AppCompatActivity {
         genres.add("Drama");
 
 
-        //temp list
-        List<Movie> movieList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            movieList.add(new Movie("Movie 1", 10.0, "https://image.tmdb.org/t/p/w500/abc123.jpg", genres, "10-04-2012"));
-            movieList.add(new Movie("Movie 2", 6.0, "https://image.tmdb.org/t/p/w500/abc123.jpg", genres, "11-09-2020"));
-            movieList.add(new Movie("Movie 3", 7.5, "https://image.tmdb.org/t/p/w500/abc123.jpg", genres, "03-02-2018"));
-        }
+//        recyclerView = findViewById(R.id.recyclerView);
+//        movieAdapter = new MovieAdapter(this, movieList);
+//        //   movieAdapter = new MovieAdapter(this, movies);
+//        recyclerView.setAdapter(movieAdapter);
+//        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        recyclerView = findViewById(R.id.recyclerView);
-        movieAdapter = new MovieAdapter(this, movieList);
-        //   movieAdapter = new MovieAdapter(this, movies);
-        recyclerView.setAdapter(movieAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+//        movieResult = new ViewModelProvider(this).get(MovieResult.class);
+//        movieResult.getResults().observe(this, movieAdapter::);
+
 
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        //   MenuItem menuItem = findViewById(R.id.dropdown_item1);
+//        View actionView = menuItem.getActionView();
 
-//    public void hasLoaded(List<Movie> Movie) {
-//        Log.i(TAG, "Binding list of movies to recycler view");
-//
-//        recyclerView.findViewById(R.id.recyclerView);
-//        movieAdapter = new MovieAdapter(this, movies);
-//        recyclerView.setAdapter(movieAdapter);
-//        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-//
-//    }
+        return true;
+    }
+    @Override
+    public void hasLoaded(List<Movie> movies) {
+        for (Movie movie : movies) {
+            Log.d("movie", movie.getOriginal_title());
+        }
+        recyclerView = findViewById(R.id.recyclerView);
+        movieAdapter = new MovieAdapter(this, movies);
+        //   movieAdapter = new MovieAdapter(this, movies);
+        recyclerView.setAdapter(movieAdapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
+    }
 }
+
