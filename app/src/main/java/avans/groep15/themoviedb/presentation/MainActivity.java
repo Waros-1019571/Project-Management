@@ -1,14 +1,17 @@
 package avans.groep15.themoviedb.presentation;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +28,29 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
     private final static String TAG = MainActivity.class.getSimpleName();
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
+
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.home:
+//                // Handle Home click
+//                return true;
+//            case R.id.account:
+//                // Handle Account click
+//                return true;
+//            case R.id.lists:
+//                // Start ListActivity
+//                Intent intent = new Intent(this, ListActivity.class);
+//                startActivity(intent);
+//                return true;
+//            case R.id.settings:
+//                // Handle Settings click
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
+
     private MovieResult movieResult;
 
 
@@ -43,26 +69,6 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         new GetMovieTask(this).execute();
-
-
-        //temp genres
-        List<String> genres = new ArrayList<>();
-        genres.add("Action");
-        genres.add("Comedy");
-        genres.add("Drama");
-
-
-//        recyclerView = findViewById(R.id.recyclerView);
-//        movieAdapter = new MovieAdapter(this, movieList);
-//        //   movieAdapter = new MovieAdapter(this, movies);
-//        recyclerView.setAdapter(movieAdapter);
-//        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-
-//        movieResult = new ViewModelProvider(this).get(MovieResult.class);
-//        movieResult.getResults().observe(this, movieAdapter::);
-
-
-
     }
 
 
@@ -73,10 +79,8 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
         }
         recyclerView = findViewById(R.id.recyclerView);
         movieAdapter = new MovieAdapter(this, movies);
-        //   movieAdapter = new MovieAdapter(this, movies);
         recyclerView.setAdapter(movieAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-
     }
 }
 
