@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -28,12 +29,27 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
 
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+     //   MenuItem menuItem = findViewById(R.id.dropdown_item1);
+
+//        View actionView = menuItem.getActionView();
+
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         new GetMovieTask(this).execute();
 
 
+        //temp genres
+        List<String> genres = new ArrayList<>();
+        genres.add("Action");
+        genres.add("Comedy");
+        genres.add("Drama");
 
 
 //        recyclerView = findViewById(R.id.recyclerView);
@@ -49,14 +65,7 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        //   MenuItem menuItem = findViewById(R.id.dropdown_item1);
-//        View actionView = menuItem.getActionView();
 
-        return true;
-    }
     @Override
     public void hasLoaded(List<Movie> movies) {
         for (Movie movie : movies) {
