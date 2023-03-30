@@ -1,13 +1,18 @@
 package avans.groep15.themoviedb.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class Movie {
     private int id;
     private String original_title;
     private double vote_average;
+
     private Date release_date;
     private String poster_path;
+    private List<String> genres;
+    private List<String> actors;
+    private String status; //Enum / boolean
 
     public Movie(int id, String original_title, double vote_average, Date release_date, String poster_path) {
         this.id = id;
@@ -15,6 +20,33 @@ public class Movie {
         this.vote_average = vote_average;
         this.release_date = release_date;
         this.poster_path = poster_path;
+    }
+
+
+
+    public List<String> getGenres() {
+        return genres;
+    }
+
+
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
+    }
+
+    public List<String> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<String> actors) {
+        this.actors = actors;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getId() {
@@ -57,3 +89,4 @@ public class Movie {
         this.poster_path = poster_path;
     }
 }
+
