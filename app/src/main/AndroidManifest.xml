@@ -22,6 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="avans.groep15.themoviedb.presentation.MovieActivity" />
     </application>
 
 </manifest>
