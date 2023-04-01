@@ -34,7 +34,10 @@ public class ListActivity extends AppCompatActivity {
         ///GET WATCHLIST FROM API
         //CODE FOR THAT
 
-        //TEMP LIST
+
+
+
+        //CREATED TEMP LIST AND ADDED MOVIES --> SENDS TO LISTADAPTER
         List<WatchList> tempList = new ArrayList<>();
 
         WatchList list2 = new WatchList("List2", "Description");
@@ -47,16 +50,14 @@ public class ListActivity extends AppCompatActivity {
         tempList.add(list1);
         tempList.add(list2);
 
+        //MORE LOG A LIKES
         List<Movie> movies = list2.getMovies();
         for (Movie movie : movies) {
             System.out.println("Movie: " + movie.getOriginal_title() + " - " + movie.getVote_average());
         }
 
-
-
         recyclerViewList = findViewById(R.id.recyclerViewList);
-
-
+        //CHANGE TEMPLIST WITH MAIN LIST.
         listAdapter = new ListAdapter(this, tempList);
         recyclerViewList.setAdapter(listAdapter);
         recyclerViewList.setLayoutManager(new LinearLayoutManager(this));

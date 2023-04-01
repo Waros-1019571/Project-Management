@@ -2,6 +2,7 @@ package avans.groep15.themoviedb.presentation;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +23,8 @@ import avans.groep15.themoviedb.domain.responses.MovieResult;
 
 public class MainActivity extends AppCompatActivity implements MovieListener {
 
+
+    private SearchView searchView;
     private ArrayList<Movie> movies;
     private final static String TAG = MainActivity.class.getSimpleName();
     private RecyclerView recyclerView;
@@ -67,6 +70,9 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         new GetMovieTask(this).execute();
+
+
+
     }
 
 
@@ -79,6 +85,22 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
         movieAdapter = new MovieAdapter(this, movies);
         recyclerView.setAdapter(movieAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
+
+        searchView = findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Update your adapter's data with the new search query
+                movieAdapter.filter(newText);
+                return false;
+            }
+        });
     }
 }
 

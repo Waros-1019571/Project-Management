@@ -13,4 +13,14 @@
     <string name="add">Add</string>
     <string name="list_management">List management</string>
     <string name="create_list">Create List</string>
+
+        <string-array name="genres">
+            <item>Action</item>
+            <item>Comedy</item>
+            <item>Drama</item>
+            <item>Horror</item>
+            <item>Thriller</item>
+            <item>Romance</item>
+        </string-array>
+
 </resources>

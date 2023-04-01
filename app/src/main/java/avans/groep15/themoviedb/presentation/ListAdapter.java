@@ -51,19 +51,21 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
                 WatchList watchList = lists.get(position);
                 Intent intent = new Intent(context, WatchListActivity.class);
 
+
+                //TEMPLIST
                 ArrayList<Movie> tempList = new ArrayList<>();
                 tempList.addAll(watchList.getMovies());
 
+                //CHECK WHATS IN TEMPLIST --> IT GETS MOVIES FROM LISTACTIVITY
                 System.out.println("WatchList OnClick: " + watchList.getMovies());
 
 
-
-
+                //PARTS TO GIVE WITH INTENT
                 intent.putExtra("listTitle", watchList.getTitle());
                 intent.putExtra("listDescription", watchList.getDescription());
                 intent.putExtra("movieList", tempList);
 
-
+                //START ACTIVITY WITH INTENT
                 context.startActivity(intent);
                 Log.i("TAG", ("Clicked on " + list.getTitle()));
             }

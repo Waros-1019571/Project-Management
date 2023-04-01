@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -28,10 +29,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     private final Context context;
     private List<Movie> movies;
+    private ArrayList<Movie> originalMovies;
 
     public MovieAdapter(Context context, List<Movie> movies) {
         this.context = context;
         this.movies = movies;
+        originalMovies = new ArrayList<>(movies);
     }
 
     @NonNull
@@ -110,6 +113,26 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             DateTextView = view.findViewById(R.id.movieDate);
             RatingTextView = view.findViewById(R.id.movieRating);
         }
+    }
+
+    public void filter(String text) {
+        if (text.isEmpty()) {
+            // If the search text is empty, reset the original list
+            movies.clear();
+            movies.addAll(originalMovies);
+        } else {
+            // If the search text is not empty, filter the list based on the text
+            text = text.toLowerCase();
+            ArrayList<Movie> filteredMovies = new ArrayList<>();
+            for (Movie movie : originalMovies) {
+                if (movie.getOriginal_title().toLowerCase().contains(text)) {
+                    filteredMovies.add(movie);
+                }
+            }
+            movies.clear();
+            movies.addAll(filteredMovies);
+        }
+        notifyDataSetChanged();
     }
 
 }
