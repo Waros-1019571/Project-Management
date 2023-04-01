@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import avans.groep15.themoviedb.R;
 
-public class MovieActivity extends AppCompatActivity {
+public class MovieDetailsActivity extends AppCompatActivity {
 
     private TextView MovieTitle;
     @Override

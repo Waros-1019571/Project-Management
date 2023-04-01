@@ -14,7 +14,10 @@
         android:theme="@style/Theme.TheMovieDB"
         tools:targetApi="31">
         <activity
-            android:name=".ListActivity"
+            android:name=".presentation.WatchListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ListActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.MainActivity"
@@ -25,7 +28,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MovieActivity" />
+        <activity android:name=".presentation.MovieDetailsActivity" />
+
     </application>
 
 </manifest>

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,11 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 
-import java.text.DateFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -73,7 +67,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             @Override
             public void onClick(View v) {
                 Movie movie = movies.get(position);
-                Intent intent = new Intent(context, MovieActivity.class);
+                Intent intent = new Intent(context, MovieDetailsActivity.class);
                 intent.putExtra("movieID", movie.getId());
                 intent.putExtra("MovieTitle", movie.getOriginal_title());
                 context.startActivity(intent);
@@ -85,7 +79,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public int getItemCount() {
+        if (movies == null) {
+            return 0;
+        }
         return movies.size();
+
     }
 
 

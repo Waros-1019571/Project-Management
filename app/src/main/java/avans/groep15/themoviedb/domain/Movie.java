@@ -1,9 +1,15 @@
 package avans.groep15.themoviedb.domain;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Movie {
+public class Movie implements Serializable {
     private int id;
     private String original_title;
     private double vote_average;
@@ -23,6 +29,10 @@ public class Movie {
     }
 
 
+    public Movie(String original_title, double vote_average) {
+        this.original_title = original_title;
+        this.vote_average = vote_average;
+    }
 
     public List<String> getGenres() {
         return genres;
@@ -87,6 +97,13 @@ public class Movie {
 
     public void setPoster_path(String poster_path) {
         this.poster_path = poster_path;
+    }
+
+
+    @NonNull
+    @Override
+    public String toString() {
+        return this.original_title;
     }
 }
 

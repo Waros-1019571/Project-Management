@@ -1,14 +1,16 @@
 package avans.groep15.themoviedb.domain;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class PersonalList {
+public class WatchList {
+    private int id; //AutoIncrement SQL
     private String title;
     private String description;
-    private List<String> movies;
+    private List<Movie> movies = new ArrayList<>();
 
-    public PersonalList(String title, String description) {
+    public WatchList(String title, String description) {
         this.title = title;
         this.description = description;
     }
@@ -29,15 +31,19 @@ public class PersonalList {
         this.description = description;
     }
 
-    public List<String> getMovies() {
+    public List<Movie> getMovies() {
         return movies;
     }
 
-    public void setMovies(List<String> movies) {
+    public void setMovies(List<Movie> movies) {
         this.movies = movies;
     }
 
     public int getItems(){
         return movies.size();
+    }
+
+    public void addMovie(Movie movie) {
+        movies.add(movie);
     }
 }

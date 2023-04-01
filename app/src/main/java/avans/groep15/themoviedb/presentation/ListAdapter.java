@@ -1,6 +1,7 @@
 package avans.groep15.themoviedb.presentation;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,45 +9,70 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import avans.groep15.themoviedb.R;
 import avans.groep15.themoviedb.domain.Movie;
-import avans.groep15.themoviedb.domain.PersonalList;
+import avans.groep15.themoviedb.domain.WatchList;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder> {
 
     private final Context context;
-    private List<PersonalList> lists;
+    private List<WatchList> lists;
 
-    public ListAdapter(Context context, List<PersonalList> lists) {
+    public ListAdapter(Context context, List<WatchList> lists) {
         this.context = context;
         this.lists = lists;
     }
+
     @NonNull
     @Override
     public ListViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View view = inflater.inflate(R.layout.movie_item, viewGroup, false);
+        View view = inflater.inflate(R.layout.list_item, viewGroup, false);
         return new ListAdapter.ListViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
-        PersonalList list = this.lists.get(position);
+        WatchList list = this.lists.get(position);
 
         holder.listTitleTextView.setText(list.getTitle());
         holder.listDescriptionTextView.setText(list.getDescription());
-        holder.listNumberTextView.setText(list.getItems());
+        holder.listNumberTextView.setText("" + list.getItems());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WatchList watchList = lists.get(position);
+                Intent intent = new Intent(context, WatchListActivity.class);
+
+                ArrayList<Movie> tempList = new ArrayList<>();
+                tempList.addAll(watchList.getMovies());
+
+                System.out.println("WatchList OnClick: " + watchList.getMovies());
+
+
+
+
+                intent.putExtra("listTitle", watchList.getTitle());
+                intent.putExtra("listDescription", watchList.getDescription());
+                intent.putExtra("movieList", tempList);
+
+
+                context.startActivity(intent);
+                Log.i("TAG", ("Clicked on " + list.getTitle()));
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return lists.size();
     }
 
     class ListViewHolder extends RecyclerView.ViewHolder {
