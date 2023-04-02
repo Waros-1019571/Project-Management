@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import avans.groep15.themoviedb.domain.LoginData;
 import avans.groep15.themoviedb.domain.responses.LoginResult;
+import avans.groep15.themoviedb.domain.responses.SessionResult;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,12 +19,14 @@ public class AccountRepository extends Repository {
     private final MutableLiveData<String> token;
     private final MutableLiveData<Boolean> hasLoggedIn;
     private final MutableLiveData<String> username;
+    private final MutableLiveData<String> sessionId;
 
     // Singleton pattern
     private AccountRepository() {
         token = new MutableLiveData<>();
         hasLoggedIn = new MutableLiveData<>();
         username = new MutableLiveData<>();
+        sessionId = new MutableLiveData<>();
     }
 
     public static AccountRepository getInstance() {
@@ -40,8 +43,13 @@ public class AccountRepository extends Repository {
     public LiveData<Boolean> getHasLoggedInObservable() {
         return this.hasLoggedIn;
     }
+
     public LiveData<String> getUsernameObservable() {
         return this.username;
+    }
+
+    public LiveData<String> getSessionIdObservable() {
+        return this.sessionId;
     }
 
     public void getToken() {
@@ -84,6 +92,7 @@ public class AccountRepository extends Repository {
                 }
                 hasLoggedIn.setValue(true);
                 username.setValue(loginData.getUsername());
+                getSessionId();
                 Log.i(TAG, "Logged in");
             }
 
@@ -95,10 +104,36 @@ public class AccountRepository extends Repository {
         });
     }
 
+    public void getSessionId() {
+        Log.d(TAG, "Getting session id");
+        ApiService api = super.getApiService();
+        Call<SessionResult> call = api.getSessionId(getApiKey(), new LoginResult(this.token.getValue()));
+
+        call.enqueue(new Callback<SessionResult>() {
+            @Override
+            public void onResponse(@NonNull Call<SessionResult> call, @NonNull Response<SessionResult> response) {
+                if (response.body() == null) {
+                    Log.e(TAG, "Error getting session ID: no response body");
+                    sessionId.setValue(null);
+                    return;
+                }
+                sessionId.setValue(response.body().getSession_id());
+                Log.i(TAG, "Received session ID");
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<SessionResult> call, @NonNull Throwable t) {
+                Log.e(TAG, "Error getting session ID: " + t.getMessage());
+                sessionId.setValue(null);
+            }
+        });
+    }
+
     public void performLogOut() {
         token.postValue(null);
         hasLoggedIn.postValue(false);
         username.postValue(null);
+        sessionId.setValue(null);
     }
 
 }
