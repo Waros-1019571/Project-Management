@@ -57,9 +57,29 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.TitleTextView.setText(movie.getOriginal_title());
 
         // Set the genres TextView to display the first 1-3 genres of the movie
-        System.out.println("Genres:" + movie.getGenres());
+        List<String> genres = movie.getGenreString();
+
+        if (genres.size() > 0) {
+            StringBuilder sb = new StringBuilder();
+            int count = 0;
+            for (String genre : genres) {
+                sb.append(genre);
+                sb.append(", ");
+                count++;
+                if (count == 2) {
+                    break;
+                }
+            }
+            sb.setLength(sb.length() - 2);
+            holder.GenreTextView.setText(sb.toString());
+        } else {
+            holder.GenreTextView.setText("N/A");
+        }
+
 
         holder.RatingTextView.setText("" + movie.getVote_average());
+
+
 
 
         //CHANGE DATE TO SIMPLEDATE FORMAT
@@ -95,11 +115,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             @Override
             public void onClick(View v) {
                 Movie movie = movies.get(position);
+
                 Intent intent = new Intent(context, MovieDetailsActivity.class);
                 intent.putExtra("movieID", movie.getId());
                 intent.putExtra("MovieTitle", movie.getOriginal_title());
+                intent.putExtra("MovieRelease", (""+ movie.getRelease_date()));
                 System.out.println(movie.getRelease_date());
                 System.out.println(movie.getVote_average());
+
+
 
                 context.startActivity(intent);
                 Log.i(TAG, ("Clicked on " + movie.getOriginal_title()));
