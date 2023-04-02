@@ -45,8 +45,13 @@ public class LoginActivity extends AppCompatActivity implements TokenListener, L
     @Override
     public void hasLoggedIn(boolean loggedIn) {
         this.loginButton.setEnabled(true);
+        if (!loggedIn) {
+            Toast.makeText(this, "Username or password are not correct!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Log.d(TAG, "" + loggedIn);
-        //Intent intent = new Intent(this, )
+        Intent intent = new Intent(this, AccountActivity.class);
+        startActivity(intent);
     }
 
     public void login(View view) {

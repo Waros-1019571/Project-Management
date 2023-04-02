@@ -12,21 +12,23 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginRepository extends Repository {
-    private final static String TAG = LoginRepository.class.getSimpleName();
-    private static volatile LoginRepository instance;
+public class AccountRepository extends Repository {
+    private final static String TAG = AccountRepository.class.getSimpleName();
+    private static volatile AccountRepository instance;
     private final MutableLiveData<String> token;
     private final MutableLiveData<Boolean> hasLoggedIn;
+    private final MutableLiveData<String> username;
 
     // Singleton pattern
-    private LoginRepository() {
+    private AccountRepository() {
         token = new MutableLiveData<>();
         hasLoggedIn = new MutableLiveData<>();
+        username = new MutableLiveData<>();
     }
 
-    public static LoginRepository getInstance() {
+    public static AccountRepository getInstance() {
         if (instance == null) {
-            instance = new LoginRepository();
+            instance = new AccountRepository();
         }
         return instance;
     }
@@ -37,6 +39,9 @@ public class LoginRepository extends Repository {
 
     public LiveData<Boolean> getHasLoggedInObservable() {
         return this.hasLoggedIn;
+    }
+    public LiveData<String> getUsernameObservable() {
+        return this.username;
     }
 
     public void getToken() {
@@ -78,6 +83,7 @@ public class LoginRepository extends Repository {
                     return;
                 }
                 hasLoggedIn.setValue(true);
+                username.setValue(loginData.getUsername());
                 Log.i(TAG, "Logged in");
             }
 
@@ -87,6 +93,12 @@ public class LoginRepository extends Repository {
                 hasLoggedIn.setValue(false);
             }
         });
+    }
+
+    public void performLogOut() {
+        token.postValue(null);
+        hasLoggedIn.postValue(false);
+        username.postValue(null);
     }
 
 }

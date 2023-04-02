@@ -28,8 +28,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="avans.groep15.themoviedb.presentation.MovieActivity" />
         <activity android:name="avans.groep15.themoviedb.presentation.LoginActivity" />
+        <activity android:name="avans.groep15.themoviedb.presentation.AccountActivity" />
         <activity android:name=".presentation.MovieDetailsActivity" />
     </application>
 

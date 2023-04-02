@@ -6,11 +6,11 @@ import android.util.Log;
 import androidx.lifecycle.Observer;
 
 import avans.groep15.themoviedb.application.listeners.TokenListener;
-import avans.groep15.themoviedb.datastorage.LoginRepository;
+import avans.groep15.themoviedb.datastorage.AccountRepository;
 
 public class TokenTask extends AsyncTask<Void, Void, Void> {
     private final static String TAG = LoginTask.class.getSimpleName();
-    private final LoginRepository repository = LoginRepository.getInstance();
+    private final AccountRepository repository = AccountRepository.getInstance();
 
     public TokenTask (TokenListener tokenListener) {
         this.repository.getTokenObservable().observe(tokenListener, new Observer<String>() {
