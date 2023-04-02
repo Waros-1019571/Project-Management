@@ -21,7 +21,6 @@ import avans.groep15.themoviedb.R;
 import avans.groep15.themoviedb.application.asynctasks.GetMovieTask;
 import avans.groep15.themoviedb.application.listeners.MovieListener;
 import avans.groep15.themoviedb.domain.Movie;
-import avans.groep15.themoviedb.domain.responses.MovieResult;
 
 public class MainActivity extends AppCompatActivity implements MovieListener {
 
@@ -39,12 +38,13 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
                 // Handle Home click
                 return true;
             case R.id.account:
-                // Handle Account click
+                Intent accountIntent = new Intent(this, LoginActivity.class);
+                startActivity(accountIntent);
                 return true;
             case R.id.lists:
                 // Start ListActivity
-                Intent intent = new Intent(this, ListActivity.class);
-                startActivity(intent);
+                Intent listIntent = new Intent(this, ListActivity.class);
+                startActivity(listIntent);
                 return true;
             case R.id.settings:
                 // Handle Settings click
@@ -54,29 +54,18 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
         }
     }
 
-    private MovieResult movieResult;
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-     //   MenuItem menuItem = findViewById(R.id.dropdown_item1);
-
-//        View actionView = menuItem.getActionView();
-
-        return true;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         new GetMovieTask(this).execute();
-
-
-
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
 
     @Override
     public void hasLoaded(List<Movie> movies) {
