@@ -1,11 +1,11 @@
 package avans.groep15.themoviedb.presentation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +17,7 @@ import avans.groep15.themoviedb.application.listeners.LoginListener;
 import avans.groep15.themoviedb.application.listeners.TokenListener;
 import avans.groep15.themoviedb.domain.LoginData;
 
-public class AccountActivity extends AppCompatActivity implements TokenListener, LoginListener {
+public class LoginActivity extends AppCompatActivity implements TokenListener, LoginListener {
 
     private final static String TAG = MainActivity.class.getSimpleName();
     private String token = "";
@@ -46,6 +46,7 @@ public class AccountActivity extends AppCompatActivity implements TokenListener,
     public void hasLoggedIn(boolean loggedIn) {
         this.loginButton.setEnabled(true);
         Log.d(TAG, "" + loggedIn);
+        //Intent intent = new Intent(this, )
     }
 
     public void login(View view) {
@@ -55,5 +56,6 @@ public class AccountActivity extends AppCompatActivity implements TokenListener,
         new LoginTask(this).execute(new LoginData(userName, password, this.token));
         this.loginButton.setEnabled(false);
         Toast.makeText(this, "Logging In...", Toast.LENGTH_SHORT).show();
+
     }
 }

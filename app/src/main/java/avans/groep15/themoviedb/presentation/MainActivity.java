@@ -21,7 +21,6 @@ import avans.groep15.themoviedb.R;
 import avans.groep15.themoviedb.application.asynctasks.GetMovieTask;
 import avans.groep15.themoviedb.application.listeners.MovieListener;
 import avans.groep15.themoviedb.domain.Movie;
-import avans.groep15.themoviedb.domain.responses.MovieResult;
 
 public class MainActivity extends AppCompatActivity implements MovieListener {
 
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
                 // Handle Home click
                 return true;
             case R.id.account:
-                Intent accountIntent = new Intent(this, AccountActivity.class);
+                Intent accountIntent = new Intent(this, LoginActivity.class);
                 startActivity(accountIntent);
                 return true;
             case R.id.lists:
