@@ -11,6 +11,7 @@ import avans.groep15.themoviedb.R;
 public class MovieDetailsActivity extends AppCompatActivity {
 
     private TextView MovieTitle;
+    private TextView MovieRelease;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,11 +21,15 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         //SET VIEWS
         MovieTitle = findViewById(R.id.text_view_mTitle);
+        MovieRelease = findViewById(R.id.text_view_mReleaseDate);
         //GET INTENT
         Intent intent = getIntent();
 
 
+
         MovieTitle.setText(intent.getStringExtra("MovieTitle"));
+
+
     }
 
 

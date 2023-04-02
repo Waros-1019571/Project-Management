@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,6 +103,28 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
                 return false;
             }
         });
+    }
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String genre = parent.getItemAtPosition(position).toString();
+        List<Movie> filteredMovies = filterMoviesByGenre(genre);
+        movieAdapter.setMeals(filteredMovies); // Set the filtered movies on the adapter
+    }
+
+
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Do nothing
+    }
+    private List<Movie> filterMoviesByGenre(String genre) {
+        List<Movie> filteredMovies = new ArrayList<>();
+        for (Movie movie : movies) {
+            if (movie.getGenres().contains(genre)) {
+                filteredMovies.add(movie);
+            }
+        }
+        return filteredMovies;
     }
 }
 

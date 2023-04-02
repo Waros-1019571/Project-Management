@@ -33,8 +33,7 @@ public class WatchListActivity extends AppCompatActivity {
         recyclerViewList = findViewById(R.id.recyclerView);
 
         ArrayList<Movie> movies = (ArrayList<Movie>) intent.getSerializableExtra("movieList");
-        movies.add(new Movie("Title1", 10));
-        movies.add(new Movie("Title2", 5));
+
 
 
         listAdapterDetails = new MovieAdapter(this, movies);

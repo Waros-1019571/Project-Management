@@ -38,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
+            android:dropDownHeight="20dp"
             android:entries="@array/genres"
             android:spinnerMode="dropdown"/>
     </androidx.cardview.widget.CardView>
@@ -47,7 +48,6 @@
         android:backgroundTint="@color/green_dark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp">
 

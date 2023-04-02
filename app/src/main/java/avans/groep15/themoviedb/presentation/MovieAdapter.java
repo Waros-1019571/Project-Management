@@ -15,7 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -49,23 +52,45 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         Movie movie = this.movies.get(position);
-        Log.d(TAG, "Binding meal " + movie.getOriginal_title() + " to position " + position);
-
+        Log.d(TAG, "Binding movie " + movie.getOriginal_title() + " to position " + position);
 
         holder.TitleTextView.setText(movie.getOriginal_title());
-        //Grabs top 3 genres --> if it doesnt have 3 genres it throws an error
-        //         String genres = movie.getGenres().get(0) + " " + movie.getGenres().get(1) + " " + movie.getGenres().get(2);
-        //         holder.GenreTextView.setText(genres);
-        holder.RatingTextView.setText("" + movie.getVote_average());
-        holder.DateTextView.setText("" + movie.getRelease_date());
 
-        //SET IMAGE
+        // Set the genres TextView to display the first 1-3 genres of the movie
+        System.out.println("Genres:" + movie.getGenres());
+
+        holder.RatingTextView.setText("" + movie.getVote_average());
+
+
+        //CHANGE DATE TO SIMPLEDATE FORMAT
+        SimpleDateFormat inputDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+        SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        if (movie.getRelease_date() != null) {
+            Date date = null;
+            try {
+                date = inputDateFormat.parse(movie.getRelease_date().toString());
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
+            String formattedDate = outputDateFormat.format(date);
+            holder.DateTextView.setText(formattedDate);
+        } else {
+            holder.DateTextView.setText("N/A");
+        }
+
+
+
+
+
+        // Set the movie poster image using Glide
         String posterPath = "https://image.tmdb.org/t/p/w500" + this.movies.get(position).getPoster_path();
         Glide.with(holder.imageView)
                 .load(posterPath)
                 .placeholder(R.drawable.ic_unknown)
                 .into(holder.imageView);
-//OnClick
+
+        // Set the click listener to open the movie details activity when the user taps on the movie
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,10 +98,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 Intent intent = new Intent(context, MovieDetailsActivity.class);
                 intent.putExtra("movieID", movie.getId());
                 intent.putExtra("MovieTitle", movie.getOriginal_title());
+                System.out.println(movie.getRelease_date());
+                System.out.println(movie.getVote_average());
+
                 context.startActivity(intent);
                 Log.i(TAG, ("Clicked on " + movie.getOriginal_title()));
             }
         });
+
     }
 
 
