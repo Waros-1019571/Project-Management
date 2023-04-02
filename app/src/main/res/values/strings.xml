@@ -14,4 +14,15 @@
     <string name="list_management">List management</string>
     <string name="create_list">Create List</string>
     <string name="accountButton">Account</string>
+
+        <string-array name="genres">
+            <item>Filters:</item>
+            <item>Action</item>
+            <item>Comedy</item>
+            <item>Drama</item>
+            <item>Horror</item>
+            <item>Thriller</item>
+            <item>Romance</item>
+        </string-array>
+
 </resources>

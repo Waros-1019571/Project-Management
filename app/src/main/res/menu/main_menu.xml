@@ -4,20 +4,24 @@
 
 
     <item
-        android:id="@+id/dropdown_item1"
+        android:id="@+id/home"
         android:actionLayout="@layout/movie_item"
         android:menuCategory="secondary"
-        android:title="Dropdown Item 1" />
-    <item
-        android:id="@+id/dropdown_item2"
-        android:actionLayout="@layout/movie_item"
-        android:menuCategory="secondary"
-        android:title="Dropdown Item 2" />
+        android:title="Home" />
     <item
         android:id="@+id/account"
         android:actionLayout="@layout/movie_item"
         android:menuCategory="secondary"
         android:title="@string/accountButton" />
-
+    <item
+        android:id="@+id/lists"
+        android:actionLayout="@layout/movie_item"
+        android:menuCategory="secondary"
+        android:title="Lists" />
+    <item
+        android:id="@+id/settings"
+        android:actionLayout="@layout/movie_item"
+        android:menuCategory="secondary"
+        android:title="Settings" />
 
 </menu>

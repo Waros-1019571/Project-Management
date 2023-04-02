@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/meal_list_item"
-    android:onClick="mealItemClicked"
+    android:id="@+id/movie_list_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
 
     <androidx.cardview.widget.CardView
+        app:cardCornerRadius="8dp"
         android:layout_width="180dp"
-        android:layout_height="280dp"
+        android:layout_height="310dp"
         android:layout_margin="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,10 +25,10 @@
             <ImageView
                 android:id="@+id/movieImage"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="180dp"
                 android:layout_centerHorizontal="true"
                 android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 android:layout_marginTop="3dp"
                 android:padding="6dp"
                 tools:srcCompat="@tools:sample/avatars" />
@@ -36,6 +36,7 @@
 
             <TextView
                 android:id="@+id/movieTitle"
+                android:maxLines="2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/movieImage"
@@ -75,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
+                android:maxLines="1"
                 android:hint="Date"
                 android:textSize="15sp" />
 
