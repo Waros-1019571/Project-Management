@@ -6,6 +6,8 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,19 +17,19 @@ public class Movie implements Serializable {
     private double vote_average;
     private Date release_date;
     private String poster_path;
-    private List<String> genres;
+    private List<Integer> genre_ids;
     private List<String> actors;
+    //   private ArrayList<Genre> genres;
     private String status; //Enum / boolean
 
-    public Movie(int id, String original_title, double vote_average, Date release_date, String poster_path, List<String> genres) {
+    public Movie(int id, String original_title, double vote_average, Date release_date, String poster_path, List<Integer> genres) {
         this.id = id;
         this.original_title = original_title;
         this.vote_average = vote_average;
         this.release_date = release_date;
         this.poster_path = poster_path;
-        this.genres = genres;
+        this.genre_ids = genres;
     }
-
 
 
     public Movie(String original_title, double vote_average) {
@@ -35,13 +37,13 @@ public class Movie implements Serializable {
         this.vote_average = vote_average;
     }
 
-    public List<String> getGenres() {
-        return genres;
+    public List<Integer> getGenres() {
+        return genre_ids;
     }
 
 
-    public void setGenres(List<String> genres) {
-        this.genres = genres;
+    public void setGenres(List<Integer> genres) {
+        this.genre_ids = genres;
     }
 
     public List<String> getActors() {
@@ -106,5 +108,80 @@ public class Movie implements Serializable {
     public String toString() {
         return this.original_title;
     }
+
+
+
+    //Hardcoded genre from id
+    public List<String> getGenreString() {
+        List<String> genreNames = new ArrayList<>();
+        for (int id : genre_ids) {
+            String name;
+            switch (id) {
+                case 28:
+                    name = "Action";
+                    break;
+                case 12:
+                    name = "Adventure";
+                    break;
+                case 16:
+                    name = "Animation";
+                    break;
+                case 35:
+                    name = "Comedy";
+                    break;
+                case 80:
+                    name = "Crime";
+                    break;
+                case 99:
+                    name = "Documentary";
+                    break;
+                case 18:
+                    name = "Drama";
+                    break;
+                case 10751:
+                    name = "Family";
+                    break;
+                case 14:
+                    name = "Fantasy";
+                    break;
+                case 36:
+                    name = "History";
+                    break;
+                case 27:
+                    name = "Horror";
+                    break;
+                case 10402:
+                    name = "Music";
+                    break;
+                case 9648:
+                    name = "Mystery";
+                    break;
+                case 10749:
+                    name = "Romance";
+                    break;
+                case 878:
+                    name = "Science Fiction";
+                    break;
+                case 10770:
+                    name = "TV Movie";
+                    break;
+                case 53:
+                    name = "Thriller";
+                    break;
+                case 10752:
+                    name = "War";
+                    break;
+                case 37:
+                    name = "Western";
+                    break;
+                default:
+                    name = "Unknown";
+            }
+            genreNames.add(name);
+        }
+        return genreNames;
+    }
 }
+
+
 
