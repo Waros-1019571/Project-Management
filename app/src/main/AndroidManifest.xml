@@ -31,6 +31,7 @@
         <activity android:name="avans.groep15.themoviedb.presentation.LoginActivity" />
         <activity android:name="avans.groep15.themoviedb.presentation.AccountActivity" />
         <activity android:name=".presentation.MovieDetailsActivity" />
+        <activity android:name=".presentation.AddListActivity" />
     </application>
 
 </manifest>

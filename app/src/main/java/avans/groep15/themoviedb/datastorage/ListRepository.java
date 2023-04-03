@@ -25,7 +25,7 @@ public class ListRepository extends Repository {
     private AccountRepository accountRepository = AccountRepository.getInstance();
 
     private ListRepository() {
-        watchLists = new MutableLiveData<>();
+        watchLists = new MutableLiveData<>(new ArrayList<>());
     }
 
     public static ListRepository getInstance() {
@@ -52,9 +52,6 @@ public class ListRepository extends Repository {
                     return;
                 }
                 List<WatchList> lists = watchLists.getValue();
-                if (lists == null) {
-                    lists = new ArrayList<WatchList>();
-                }
                 watchList.setId(response.body().getList_id());
                 lists.add(watchList);
                 watchLists.postValue(lists);
