@@ -41,7 +41,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
         WatchList list = this.lists.get(position);
 
-        holder.listTitleTextView.setText(list.getTitle());
+        holder.listTitleTextView.setText(list.getName());
         holder.listDescriptionTextView.setText(list.getDescription());
         holder.listNumberTextView.setText("" + list.getItems());
 
@@ -61,13 +61,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
 
                 //PARTS TO GIVE WITH INTENT
-                intent.putExtra("listTitle", watchList.getTitle());
+                intent.putExtra("listTitle", watchList.getName());
                 intent.putExtra("listDescription", watchList.getDescription());
                 intent.putExtra("movieList", tempList);
 
                 //START ACTIVITY WITH INTENT
                 context.startActivity(intent);
-                Log.i("TAG", ("Clicked on " + list.getTitle()));
+                Log.i("TAG", ("Clicked on " + list.getName()));
             }
         });
     }
