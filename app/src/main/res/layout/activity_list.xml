@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green_dark">
+    android:background="@color/green_dark"
+    tools:context=".presentation.ListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewList"
@@ -13,4 +14,17 @@
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp"
         tools:listitem="@layout/list_item"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addListButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="end|bottom"
+        android:layout_marginStart="336dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="13dp"
+        android:src="@drawable/ic_add" />
 </RelativeLayout>

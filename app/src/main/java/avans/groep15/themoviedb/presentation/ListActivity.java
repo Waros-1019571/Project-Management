@@ -1,35 +1,48 @@
 package avans.groep15.themoviedb.presentation;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.util.Log;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import avans.groep15.themoviedb.R;
+import avans.groep15.themoviedb.datastorage.ListRepository;
 import avans.groep15.themoviedb.domain.Movie;
 import avans.groep15.themoviedb.domain.WatchList;
 import avans.groep15.themoviedb.domain.responses.MovieResult;
 
 public class ListActivity extends AppCompatActivity {
 
-    private ArrayList<WatchList> lists;
+    private ListRepository listRepository = ListRepository.getInstance();
     private final static String TAG = MainActivity.class.getSimpleName();
     private RecyclerView recyclerViewList;
     private ListAdapter listAdapter;
-    private MovieResult movieResult;
-
-    private WatchList watchList;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+        recyclerViewList = findViewById(R.id.recyclerViewList);
+
+        // Add onClick to add button
+        FloatingActionButton actionButton = findViewById(R.id.addListButton);
+        ListActivity thisContext = this;
+        actionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(thisContext, AddListActivity.class);
+                startActivity(intent);
+            }
+        });
 
         ///GET WATCHLIST FROM API
         //CODE FOR THAT
@@ -62,6 +75,4 @@ public class ListActivity extends AppCompatActivity {
         recyclerViewList.setAdapter(listAdapter);
         recyclerViewList.setLayoutManager(new LinearLayoutManager(this));
     }
-
-
 }

@@ -8,7 +8,6 @@ import androidx.lifecycle.Observer;
 import java.util.List;
 
 import avans.groep15.themoviedb.application.listeners.ListListener;
-import avans.groep15.themoviedb.application.listeners.LogOutListener;
 import avans.groep15.themoviedb.datastorage.ListRepository;
 import avans.groep15.themoviedb.domain.WatchList;
 
