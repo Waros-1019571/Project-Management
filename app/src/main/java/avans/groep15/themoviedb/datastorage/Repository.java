@@ -7,6 +7,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 abstract class Repository {
+
+    protected String getApiKey() {
+        return "277fca8f75771911582af3d12b45b08d";
+    }
+
     protected ApiService getApiService() {
         Gson gson = new GsonBuilder()
                 .setLenient()
