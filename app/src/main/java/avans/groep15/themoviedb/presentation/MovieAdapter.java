@@ -76,6 +76,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 Intent intent = new Intent(context, MovieActivity.class);
                 intent.putExtra("movieID", movie.getId());
                 intent.putExtra("MovieTitle", movie.getOriginal_title());
+                intent.putExtra("MovieDescription", ("" + movie.getOverview()));
+                intent.putExtra("MoviePoster", ("" + movie.getPoster_path()));
+                intent.putExtra("MovieGenre", ("" + movie.getGenres()));
+                intent.putExtra("MovieRating", ("" + movie.getVote_average()));
+                intent.putExtra("MovieAge", ("" + movie.getAdult()));
+                intent.putExtra("MovieRelease",("" + movie.getRelease_date()));
+                intent.putExtra("MovieNativeLanguage", ("" + movie.getOriginal_language()));
+                intent.putExtra("MovieActor", ("" + movie.getActors()));
                 context.startActivity(intent);
                 Log.i(TAG, ("Clicked on " + movie.getOriginal_title()));
             }
@@ -97,6 +105,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     class MovieViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
+
         private TextView TitleTextView;
         private TextView GenreTextView;
         private TextView DateTextView;
