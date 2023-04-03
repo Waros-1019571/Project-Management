@@ -133,7 +133,7 @@ public class AccountRepository extends Repository {
         token.postValue(null);
         hasLoggedIn.postValue(false);
         username.postValue(null);
-        sessionId.setValue(null);
+        sessionId.postValue(null);
     }
 
 }
