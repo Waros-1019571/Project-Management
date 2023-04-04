@@ -1,24 +1,34 @@
 package avans.groep15.themoviedb.domain;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Movie {
+public class Movie implements Serializable {
     private int id;
     private String original_title;
     private String overview;
+    private boolean adult;
     private double vote_average;
+    private String original_language;
     private Date release_date;
     private String poster_path;
-    private List<String> genres;
+    private List<Integer> genre_ids;
     private List<String> actors;
+    //   private ArrayList<Genre> genres;
     private String status; //Enum / boolean
     private boolean adult;
     private String original_language;
     private String comment;
 
-    public Movie(int id, String original_title, String overview, List<String> genres, double vote_average, boolean adult, Date release_date, String poster_path, String original_language, String comment) {
+    public Movie(int id, String original_title, double vote_average, Date release_date, String poster_path, List<Integer> genres) {
         this.id = id;
         this.original_title = original_title;
         this.overview = overview;
@@ -27,14 +37,22 @@ public class Movie {
         this.adult = adult;
         this.release_date = release_date;
         this.poster_path = poster_path;
-        this.original_language = original_language;
+        this.genre_ids = genres;
     }
 
-    public List<String> getGenres() {
-        return genres;
+
+    public Movie(String original_title, double vote_average) {
+        this.original_title = original_title;
+        this.vote_average = vote_average;
     }
-    public void setGenres(List<String> genres) {
-        this.genres = genres;
+
+    public List<Integer> getGenres() {
+        return genre_ids;
+    }
+
+
+    public void setGenres(List<Integer> genres) {
+        this.genre_ids = genres;
     }
 
     public List<String> getActors() {
@@ -109,6 +127,102 @@ public class Movie {
         this.poster_path = poster_path;
     }
 
+
+    @NonNull
+    @Override
+    public String toString() {
+        return this.original_title;
+    }
+
+
+
+    //Hardcoded genre from id
+    public List<String> getGenreString() {
+        List<String> genreNames = new ArrayList<>();
+        for (int id : genre_ids) {
+            String name;
+            switch (id) {
+                case 28:
+                    name = "Action";
+                    break;
+                case 12:
+                    name = "Adventure";
+                    break;
+                case 16:
+                    name = "Animation";
+                    break;
+                case 35:
+                    name = "Comedy";
+                    break;
+                case 80:
+                    name = "Crime";
+                    break;
+                case 99:
+                    name = "Documentary";
+                    break;
+                case 18:
+                    name = "Drama";
+                    break;
+                case 10751:
+                    name = "Family";
+                    break;
+                case 14:
+                    name = "Fantasy";
+                    break;
+                case 36:
+                    name = "History";
+                    break;
+                case 27:
+                    name = "Horror";
+                    break;
+                case 10402:
+                    name = "Music";
+                    break;
+                case 9648:
+                    name = "Mystery";
+                    break;
+                case 10749:
+                    name = "Romance";
+                    break;
+                case 878:
+                    name = "Science Fiction";
+                    break;
+                case 10770:
+                    name = "TV Movie";
+                    break;
+                case 53:
+                    name = "Thriller";
+                    break;
+                case 10752:
+                    name = "War";
+                    break;
+                case 37:
+                    name = "Western";
+                    break;
+                default:
+                    name = "Unknown";
+            }
+            genreNames.add(name);
+        }
+        return genreNames;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public boolean isAdult() {
+        return adult;
+    }
+
+    public void setAdult(boolean adult) {
+        this.adult = adult;
+    }
+
     public String getOriginal_language() {
         return original_language;
     }
@@ -117,14 +231,14 @@ public class Movie {
         this.original_language = original_language;
     }
 
-    public String getComment() {
-        return comment;
+    public List<Integer> getGenre_ids() {
+        return genre_ids;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setGenre_ids(List<Integer> genre_ids) {
+        this.genre_ids = genre_ids;
     }
-
-
 }
+
+
 

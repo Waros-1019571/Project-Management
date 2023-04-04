@@ -3,15 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <Button
-        android:id="@+id/exitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/x"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:layout_height="match_parent"
+    tools:context=".presentation.LoginActivity">
 
     <TextView
         android:id="@+id/ListAdd"
@@ -52,7 +45,7 @@
         app:layout_constraintVertical_bias="0.365" />
 
     <EditText
-        android:id="@+id/titleInput"
+        android:id="@+id/usernameInput"
         android:layout_width="210dp"
         android:layout_height="62dp"
         android:ems="10"
@@ -67,7 +60,7 @@
         app:layout_constraintVertical_bias="0.256" />
 
     <EditText
-        android:id="@+id/DescriptionInput"
+        android:id="@+id/passwordInput"
         android:layout_width="197dp"
         android:layout_height="53dp"
         android:ems="10"
@@ -82,10 +75,11 @@
         app:layout_constraintVertical_bias="0.362" />
 
     <Button
-        android:id="@+id/addToListButton"
+        android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/log_in"
+        android:onClick="login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
