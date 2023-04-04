@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,16 +21,17 @@ import java.util.List;
 import avans.groep15.themoviedb.R;
 import avans.groep15.themoviedb.application.asynctasks.GetMovieTask;
 import avans.groep15.themoviedb.application.listeners.MovieListener;
+import avans.groep15.themoviedb.datastorage.AccountRepository;
 import avans.groep15.themoviedb.domain.Movie;
 
 public class MainActivity extends AppCompatActivity implements MovieListener {
-
 
     private SearchView searchView;
     private ArrayList<Movie> movies;
     private final static String TAG = MainActivity.class.getSimpleName();
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
+    private AccountRepository accountRepository = AccountRepository.getInstance();
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -43,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
                 return true;
             case R.id.lists:
                 // Start ListActivity
+                if (accountRepository.getSessionIdObservable().getValue() == null) {
+                    Toast.makeText(this, "You need to be logged in first", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
                 Intent listIntent = new Intent(this, ListActivity.class);
                 startActivity(listIntent);
                 return true;
@@ -101,7 +107,6 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
     }
 
 
-
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         // Do nothing
@@ -116,4 +121,3 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
         return filteredMovies;
     }
 }
-

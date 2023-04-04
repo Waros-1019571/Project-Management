@@ -5,22 +5,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WatchList {
-    private int id; //AutoIncrement SQL
-    private String title;
+    private int id;
+    private String name;
     private String description;
+    private final String language = "en";
     private List<Movie> movies = new ArrayList<>();
 
-    public WatchList(String title, String description) {
-        this.title = title;
+    public WatchList(String name, String description) {
+        this.name = name;
         this.description = description;
     }
 
-    public String getTitle() {
-        return title;
+    public int getId() {
+        return id;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -29,6 +38,10 @@ public class WatchList {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getLanguage() {
+        return language;
     }
 
     public List<Movie> getMovies() {
