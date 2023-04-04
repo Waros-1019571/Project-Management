@@ -80,8 +80,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.RatingTextView.setText("" + movie.getVote_average());
 
 
-
-
         //CHANGE DATE TO SIMPLEDATE FORMAT
         SimpleDateFormat inputDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
         SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
@@ -100,9 +98,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         }
 
 
-
-
-
         // Set the movie poster image using Glide
         String posterPath = "https://image.tmdb.org/t/p/w500" + this.movies.get(position).getPoster_path();
         Glide.with(holder.imageView)
@@ -115,16 +110,24 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             @Override
             public void onClick(View v) {
                 Movie movie = movies.get(position);
-
-                Intent intent = new Intent(context, MovieDetailsActivity.class);
+                Intent intent = new Intent(context, MovieActivity.class);
                 intent.putExtra("movieID", movie.getId());
                 intent.putExtra("MovieTitle", movie.getOriginal_title());
-                intent.putExtra("MovieRelease", (""+ movie.getRelease_date()));
-                System.out.println(movie.getRelease_date());
-                System.out.println(movie.getVote_average());
+                intent.putExtra("MovieDescription", ("" + movie.getOverview()));
+                intent.putExtra("MoviePoster", ("" + movie.getPoster_path()));
 
+                List<String> list = movie.getGenreString();
+                String listString = "";
+for (String i : list) {
+    listString += i + " ";
+}
 
-
+                intent.putExtra("MovieGenre", (listString));
+                intent.putExtra("MovieRating", ("" + movie.getVote_average()));
+                intent.putExtra("MovieAge", ("" + movie.isAdult()));
+                intent.putExtra("MovieRelease", ("" + movie.getRelease_date()));
+                intent.putExtra("MovieNativeLanguage", ("" + movie.getOriginal_language()));
+                intent.putExtra("MovieActor", ("" + movie.getActors()));
                 context.startActivity(intent);
                 Log.i(TAG, ("Clicked on " + movie.getOriginal_title()));
             }

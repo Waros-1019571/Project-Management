@@ -1,247 +1,107 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/green_dark"
     android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".presentation.MainActivity">
+    android:padding="16dp">
 
-
-    <TextView
-        android:id="@+id/text_view_mTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/text_view_mDescription"
-        android:layout_width="214dp"
-        android:layout_height="122dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Description"
-        android:maxLines="6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_mTitle" />
-
-    <ImageView
-        android:id="@+id/text_view_mPoster"
-        android:layout_width="135dp"
-        android:layout_height="185dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_mTitle" />
-
-    <TextView
-        android:id="@+id/text_view_mGenre"
-        android:layout_width="214dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="Genre, Genre, Genre"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_mDescription" />
-
-    <TextView
-        android:id="@+id/text_view_mRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="Rating"
-        app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_mPoster" />
-
-    <TextView
-        android:id="@+id/text_view_mAge"
-        android:layout_width="105dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:text="Age"
-        app:layout_constraintBottom_toTopOf="@+id/text_view_mReleaseDate"
-        app:layout_constraintStart_toEndOf="@+id/textView3" />
-
-    <TextView
-        android:id="@+id/text_view_mReleaseDate"
-        android:layout_width="105dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="Release date"
-        app:layout_constraintBottom_toTopOf="@+id/text_view_mStatus"
-        app:layout_constraintStart_toEndOf="@+id/textView2" />
-
-    <TextView
-        android:id="@+id/text_view_mStatus"
-        android:layout_width="105dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="69dp"
-        android:text="Status"
-        app:layout_constraintBottom_toTopOf="@+id/text_view_mNativeLanguage"
-        app:layout_constraintStart_toEndOf="@+id/textView4" />
-
-    <TextView
-        android:id="@+id/text_view_mNativeLanguage"
-        android:layout_width="105dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="Native language"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toTopOf="@+id/textView5" />
-
-    <TextView
-        android:id="@+id/text_view_mActor"
-        android:layout_width="51dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:text="Actor Actor Actor"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
-
-    <VideoView
-        android:id="@+id/text_view_mTrailer"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_movie"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.08"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        android:layout_height="match_parent"
+        android:backgroundTint="@color/green_light"
+        app:cardCornerRadius="12dp">
 
-    <TextView
-        android:id="@+id/text_view_mReviewOne"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Review one"
-        android:maxLines="3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
 
-    <TextView
-        android:id="@+id/text_view_mReviewTwo"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Review two"
-        android:maxLines="3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+            <TextView
+                android:id="@+id/text_view_mTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Title"
+                android:textSize="25sp" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="Actors"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            <TextView
+                android:id="@+id/text_view_mGenre"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_view_mTitle"
+                android:layout_marginTop="40dp"
+                android:text="Genre, Genre, Genre" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="Release date:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            <TextView
+                android:id="@+id/text_view_mDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/image_view_mPoster"
+                android:padding="5px"
+                android:text="Description"
+                android:textStyle="italic" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="Age"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_mGenre" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="Status"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            <TextView
+                android:id="@+id/SpinnerTextView"
+                android:text="Add to list:"
+                android:layout_width="wrap_content"
+                android:translationY="30px"
+                android:layout_centerHorizontal="true"
+                android:translationX="-90px"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_view_mDescription"/>
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="100dp"
+                android:layout_toRightOf="@id/SpinnerTextView"
+                android:layout_height="wrap_content"
+                android:translationX="-90px"
+                android:layout_below="@id/text_view_mDescription"
+                android:layout_marginTop="8dp" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="Native language"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rating"
-        app:layout_constraintStart_toStartOf="@+id/text_view_mPoster"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_mPoster" />
+            <ImageView
+                android:id="@+id/image_view_mPoster"
+                android:layout_width="155dp"
+                android:layout_height="235dp"
+                android:layout_below="@id/text_view_mTitle"
+                android:layout_alignParentEnd="true" />
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_mActor" />
+            <TextView
+                android:id="@+id/text_view_mRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_view_mNativeLanguage"
+                android:text="Rating" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Add to list: "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_mActor" />
+            <TextView
+                android:id="@+id/text_view_mAge"
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_view_mGenre"
+                android:hint="adult"
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/button_add_to_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="32dp"
-        android:src="@drawable/ic_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toEndOf="@+id/spinner"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.469" />
+                />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:text="Review"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_mTrailer" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_mReviewOne" />
+            <TextView
+                android:id="@+id/text_view_mReleaseDate"
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_view_mAge"
+                android:hint="release date" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/text_view_mNativeLanguage"
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_view_mReleaseDate"
+                android:text="Native language" />
+
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
