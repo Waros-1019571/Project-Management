@@ -38,7 +38,7 @@ public class MovieRepository extends Repository {
     public void performGetMovies() {
         Log.d(TAG, "Getting movies");
         ApiService api = super.getApiService();
-        Call<MovieResult> call = api.getMovies("277fca8f75771911582af3d12b45b08d");
+        Call<MovieResult> call = api.getMovies(getApiKey());
 
         call.enqueue(new Callback<MovieResult>() {
             @Override
