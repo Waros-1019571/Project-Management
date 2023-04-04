@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/home"
+        android:actionLayout="@layout/movie_item"
+        android:menuCategory="secondary"
+        android:title="Home" />
+    <item
+        android:id="@+id/account"
+        android:actionLayout="@layout/movie_item"
+        android:menuCategory="secondary"
+        android:title="@string/accountButton" />
+    <item
+        android:id="@+id/lists"
+        android:actionLayout="@layout/movie_item"
+        android:menuCategory="secondary"
+        android:title="Lists" />
+    <item
+        android:id="@+id/settings"
+        android:actionLayout="@layout/movie_item"
+        android:menuCategory="secondary"
+        android:title="Settings" />
+
+</menu>
