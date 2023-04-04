@@ -1,5 +1,6 @@
 package avans.groep15.themoviedb.datastorage;
 
+import avans.groep15.themoviedb.domain.Account;
 import avans.groep15.themoviedb.domain.LoginData;
 import avans.groep15.themoviedb.domain.WatchList;
 import avans.groep15.themoviedb.domain.responses.ListResult;
@@ -24,6 +25,9 @@ public interface ApiService {
 
     @POST("authentication/session/new")
     Call<SessionResult> getSessionId(@Query("api_key")String apiKey, @Body() LoginResult requestToken);
+
+    @GET("account")
+    Call<Account> getUserId(@Query("api_key")String apiKey, @Query("session_id")String session_id);
 
     @POST("list")
     Call<ListResult> createList(@Query("api_key")String apiKey, @Query("session_id")String session_id, @Body() WatchList watchList);
