@@ -118,9 +118,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
                 List<String> list = movie.getGenreString();
                 String listString = "";
-for (String i : list) {
-    listString += i + " ";
-}
+                for (String i : list) {
+                    listString += i + " ";
+                }
 
                 intent.putExtra("MovieGenre", (listString));
                 intent.putExtra("MovieRating", ("" + movie.getVote_average()));
@@ -134,6 +134,8 @@ for (String i : list) {
         });
 
     }
+
+
 
 
     @Override
@@ -182,6 +184,22 @@ for (String i : list) {
             ArrayList<Movie> filteredMovies = new ArrayList<>();
             for (Movie movie : originalMovies) {
                 if (movie.getOriginal_title().toLowerCase().contains(text)) {
+                    filteredMovies.add(movie);
+                }
+            }
+            movies.clear();
+            movies.addAll(filteredMovies);
+        }
+        notifyDataSetChanged();
+    }
+    public void filterByCategory(String category) {
+        if (category.equals("Filters:") | category.equals("All Movies")) {
+            movies.clear();
+            movies.addAll(originalMovies);
+        } else {
+            ArrayList<Movie> filteredMovies = new ArrayList<>();
+            for (Movie movie : movies) {
+                if (movie.getGenreString().contains(category)) {
                     filteredMovies.add(movie);
                 }
             }

@@ -40,6 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/image_view_mPoster"
                 android:padding="5px"
+                android:layout_marginTop="12dp"
                 android:text="Description"
                 android:textStyle="italic" />
 
