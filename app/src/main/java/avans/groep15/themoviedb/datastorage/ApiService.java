@@ -27,6 +27,4 @@ public interface ApiService {
 
     @POST("list")
     Call<ListResult> createList(@Query("api_key")String apiKey, @Query("session_id")String session_id, @Body() WatchList watchList);
-
-    
 }

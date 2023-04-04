@@ -32,6 +32,10 @@ public class AddListActivity extends AppCompatActivity implements ListListener {
         addButton = findViewById(R.id.addNewListButton);
     }
 
+    public void goBack(View view) {
+        finish();
+    }
+
     public void addList(View view) {
         String title = titleInput.getText().toString();
         if (Validation.isEmptyString(title)) {
@@ -52,5 +56,11 @@ public class AddListActivity extends AppCompatActivity implements ListListener {
         addButton.setEnabled(true);
         Toast.makeText(this, "Added list!", Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    @Override
+    public void onFailure() {
+        addButton.setEnabled(true);
+        Toast.makeText(this, "Try changing the contents of the description!", Toast.LENGTH_SHORT).show();
     }
 }

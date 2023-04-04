@@ -12,7 +12,7 @@ import avans.groep15.themoviedb.datastorage.ListRepository;
 import avans.groep15.themoviedb.domain.WatchList;
 
 public class CreateListTask extends AsyncTask<WatchList, Void, Void> {
-    private final static String TAG = LoginTask.class.getSimpleName();
+    private final static String TAG = CreateListTask.class.getSimpleName();
     private final ListRepository repository = ListRepository.getInstance();
 
     public CreateListTask(ListListener listListener) {

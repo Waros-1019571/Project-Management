@@ -22,10 +22,10 @@ public class ListRepository extends Repository {
     private final static String TAG = ListRepository.class.getSimpleName();
     private static volatile ListRepository instance;
     private final MutableLiveData<List<WatchList>> watchLists;
-    private AccountRepository accountRepository = AccountRepository.getInstance();
+    private final AccountRepository accountRepository = AccountRepository.getInstance();
 
     private ListRepository() {
-        watchLists = new MutableLiveData<>(new ArrayList<>());
+        watchLists = new MutableLiveData<>();
     }
 
     public static ListRepository getInstance() {
@@ -39,10 +39,10 @@ public class ListRepository extends Repository {
         return this.watchLists;
     }
 
-    public void postWatchLists(WatchList watchList) {
+    public void postWatchLists(WatchList newWatchList) {
         Log.d(TAG, "Posting watch lists");
         ApiService api = super.getApiService();
-        Call<ListResult> call = api.createList(getApiKey(), accountRepository.getSessionIdObservable().getValue(), watchList);
+        Call<ListResult> call = api.createList(getApiKey(), accountRepository.getSessionIdObservable().getValue(), newWatchList);
 
         call.enqueue(new Callback<ListResult>() {
             @Override
@@ -51,10 +51,13 @@ public class ListRepository extends Repository {
                     Log.e(TAG, "Error adding list: no response body");
                     return;
                 }
-                List<WatchList> lists = watchLists.getValue();
-                watchList.setId(response.body().getList_id());
-                lists.add(watchList);
-                watchLists.postValue(lists);
+                List<WatchList> listsFromLiveData = watchLists.getValue();
+                if (listsFromLiveData == null) {
+                    listsFromLiveData = new ArrayList<>();
+                }
+                newWatchList.setId(response.body().getList_id());
+                listsFromLiveData.add(newWatchList);
+                watchLists.postValue(listsFromLiveData);
                 Log.i(TAG, "Added list");
             }
 
