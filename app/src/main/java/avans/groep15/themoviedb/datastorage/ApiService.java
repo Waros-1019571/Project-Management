@@ -1,16 +1,19 @@
 package avans.groep15.themoviedb.datastorage;
 
 import avans.groep15.themoviedb.domain.Account;
+import avans.groep15.themoviedb.domain.AddMovie;
 import avans.groep15.themoviedb.domain.LoginData;
 import avans.groep15.themoviedb.domain.WatchList;
 import avans.groep15.themoviedb.domain.responses.ListResult;
 import avans.groep15.themoviedb.domain.responses.LoginResult;
 import avans.groep15.themoviedb.domain.responses.MovieResult;
 import avans.groep15.themoviedb.domain.responses.SessionResult;
+import avans.groep15.themoviedb.domain.responses.StatusResult;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -31,4 +34,7 @@ public interface ApiService {
 
     @POST("list")
     Call<ListResult> createList(@Query("api_key")String apiKey, @Query("session_id")String session_id, @Body() WatchList watchList);
+    
+    @POST("list/{listId}/add_item")
+    Call<StatusResult> addToList(@Path("listId") int listId, @Query("api_key")String apiKey, @Query("session_id")String session_id, @Body AddMovie addMovie);
 }

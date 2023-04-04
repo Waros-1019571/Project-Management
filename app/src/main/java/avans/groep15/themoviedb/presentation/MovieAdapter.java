@@ -146,11 +146,10 @@ for (String i : list) {
     }
 
 
-    public void setMeals(List<Movie> movies) {
+    public void setMovies(List<Movie> movies) {
         this.movies = movies;
         notifyDataSetChanged();
     }
-
 
     class MovieViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
