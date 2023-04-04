@@ -14,7 +14,10 @@ import java.util.List;
 public class Movie implements Serializable {
     private int id;
     private String original_title;
+    private String overview;
+    private boolean adult;
     private double vote_average;
+    private String original_language;
     private Date release_date;
     private String poster_path;
     private List<Integer> genre_ids;
@@ -180,6 +183,38 @@ public class Movie implements Serializable {
             genreNames.add(name);
         }
         return genreNames;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public boolean isAdult() {
+        return adult;
+    }
+
+    public void setAdult(boolean adult) {
+        this.adult = adult;
+    }
+
+    public String getOriginal_language() {
+        return original_language;
+    }
+
+    public void setOriginal_language(String original_language) {
+        this.original_language = original_language;
+    }
+
+    public List<Integer> getGenre_ids() {
+        return genre_ids;
+    }
+
+    public void setGenre_ids(List<Integer> genre_ids) {
+        this.genre_ids = genre_ids;
     }
 }
 
