@@ -33,8 +33,7 @@ public class AccountActivity extends AppCompatActivity implements LogOutListener
         setContentView(R.layout.logged_in_account_activity);
 
         this.usernameLoggedIn = findViewById(R.id.usernameLoggedIn);
-        String username = this.usernameLoggedIn.getText().toString();
-        username += ": " + AccountRepository.getInstance().getAccountObservable().getValue().getUsername();
+        String username = AccountRepository.getInstance().getAccountObservable().getValue().getUsername();
         this.usernameLoggedIn.setText(username);
 
         this.avatarLoggedIn = findViewById(R.id.AvatarLoggedIn);
