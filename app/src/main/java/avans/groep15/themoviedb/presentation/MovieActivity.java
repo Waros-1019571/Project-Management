@@ -112,8 +112,6 @@ public class MovieActivity extends AppCompatActivity implements StatusListener {
             movieReleaseDate.setText("Release Date: N/A");
         }
 
-        movieNativeLanguage.setText("Language: " + intent.getStringExtra("MovieNativeLanguage"));
-
         setWatchLists();
     }
 

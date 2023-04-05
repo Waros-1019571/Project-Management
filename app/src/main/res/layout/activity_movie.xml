@@ -15,7 +15,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="441dp"
+            android:layout_height="match_parent"
             android:padding="20dp">
 
             <TextView
@@ -53,16 +53,16 @@
                 android:layout_centerHorizontal="true"
                 android:text="Add to list:"
                 android:translationX="-270px"
-                android:translationY="30px" />
+                android:translationY="300px" />
 
 
             <Spinner
                 android:id="@+id/spinner"
-                android:layout_width="239dp"
+                android:layout_width="228dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_view_mDescription"
-                android:layout_marginLeft="-49dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="-23dp"
+                android:layout_marginTop="108dp"
                 android:layout_toRightOf="@id/SpinnerTextView"
                 android:translationX="-90px" />
 
@@ -108,12 +108,10 @@
                 android:id="@+id/addToListButton"
                 android:layout_width="234dp"
                 android:layout_height="51dp"
-                android:layout_below="@+id/text_view_mDescription"
-                android:layout_alignStart="@+id/SpinnerTextView"
-                android:layout_alignBottom="@+id/spinner"
-                android:layout_marginStart="46dp"
-                android:layout_marginTop="-304dp"
-                android:layout_marginBottom="288dp"
+                android:layout_below="@+id/spinner"
+                android:backgroundTint="@color/green_dark"
+                android:layout_marginTop="30dp"
+                android:layout_centerHorizontal="true"
                 android:onClick="addToList"
                 android:text="@string/add" />
 
