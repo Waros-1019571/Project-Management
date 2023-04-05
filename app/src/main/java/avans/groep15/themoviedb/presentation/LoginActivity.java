@@ -15,11 +15,13 @@ import avans.groep15.themoviedb.application.asynctasks.LoginTask;
 import avans.groep15.themoviedb.application.asynctasks.TokenTask;
 import avans.groep15.themoviedb.application.listeners.LoginListener;
 import avans.groep15.themoviedb.application.listeners.TokenListener;
+import avans.groep15.themoviedb.datastorage.AccountRepository;
 import avans.groep15.themoviedb.domain.LoginData;
 
 public class LoginActivity extends AppCompatActivity implements TokenListener, LoginListener {
 
     private final static String TAG = MainActivity.class.getSimpleName();
+    private final AccountRepository accountRepository = AccountRepository.getInstance();
     private String token = "";
 
     private EditText userNameInput;
@@ -30,6 +32,12 @@ public class LoginActivity extends AppCompatActivity implements TokenListener, L
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.not_logged_in_account_activity);
+        if (Boolean.TRUE.equals(accountRepository.getHasLoggedInObservable().getValue())) {
+            // Already logged in
+            Intent intent = new Intent(this, AccountActivity.class);
+            startActivity(intent);
+            return;
+        }
         new TokenTask(this).execute();
 
         this.userNameInput = findViewById(R.id.usernameInput);

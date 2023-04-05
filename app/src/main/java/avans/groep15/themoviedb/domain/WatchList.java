@@ -11,7 +11,15 @@ public class WatchList {
     private String name;
     private String description;
     private final String language = "en";
+    private int item_count = 0; // List size according to the API
     private List<Movie> movies = new ArrayList<>();
+
+    public WatchList(int id, String name, String description, int item_count) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.item_count = item_count;
+    }
 
     public WatchList(String name, String description) {
         this.name = name;
@@ -47,15 +55,23 @@ public class WatchList {
     }
 
     public List<Movie> getMovies() {
+        // Prevent Retrofit from overriding empty list with null
+        if (movies == null) {
+            movies = new ArrayList<>();
+        }
         return movies;
     }
 
     public void setMovies(List<Movie> movies) {
-        this.movies = movies;
+        // Prevent Retrofit from overriding empty list with null
+        if (movies != null) {
+            this.movies = movies;
+        }
     }
 
-    public int getItems(){
-        return movies.size();
+    public int getItems() {
+        // Get either local or API list size
+        return Math.max(getMovies().size(), item_count);
     }
 
     public void addMovie(Movie movie) {

@@ -52,7 +52,7 @@ public class AddListActivity extends AppCompatActivity implements ListListener {
     }
 
     @Override
-    public void listAdded(List<WatchList> lists) {
+    public void receiveLists(List<WatchList> lists) {
         addButton.setEnabled(true);
         Toast.makeText(this, "Added list!", Toast.LENGTH_SHORT).show();
         finish();
