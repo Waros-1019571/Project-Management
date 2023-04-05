@@ -9,6 +9,7 @@ import avans.groep15.themoviedb.domain.responses.LoginResult;
 import avans.groep15.themoviedb.domain.responses.MovieResult;
 import avans.groep15.themoviedb.domain.responses.SessionResult;
 import avans.groep15.themoviedb.domain.responses.StatusResult;
+import avans.groep15.themoviedb.domain.responses.UserListsResult;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -37,4 +38,7 @@ public interface ApiService {
     
     @POST("list/{listId}/add_item")
     Call<StatusResult> addToList(@Path("listId") int listId, @Query("api_key")String apiKey, @Query("session_id")String session_id, @Body AddMovie addMovie);
+
+    @GET("account/{accountId}/lists")
+    Call<UserListsResult> getLists(@Path("accountId") int accountId, @Query("api_key")String apiKey, @Query("session_id")String session_id);
 }

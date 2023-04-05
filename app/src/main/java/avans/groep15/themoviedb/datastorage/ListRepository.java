@@ -16,6 +16,7 @@ import avans.groep15.themoviedb.domain.WatchList;
 import avans.groep15.themoviedb.domain.responses.ListResult;
 import avans.groep15.themoviedb.domain.responses.MovieResult;
 import avans.groep15.themoviedb.domain.responses.StatusResult;
+import avans.groep15.themoviedb.domain.responses.UserListsResult;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -100,6 +101,29 @@ public class ListRepository extends Repository {
             @Override
             public void onFailure(@NonNull Call<StatusResult> call, @NonNull Throwable t) {
                 Log.e(TAG, "Error adding to list: " + t.getMessage());
+            }
+        });
+    }
+
+    public void getWatchLists() {
+        Log.d(TAG, "Getting lists");
+        ApiService api = super.getApiService();
+        Call<UserListsResult> call = api.getLists(accountRepository.getAccountObservable().getValue().getId(), getApiKey(), accountRepository.getSessionIdObservable().getValue());
+
+        call.enqueue(new Callback<UserListsResult>() {
+            @Override
+            public void onResponse(@NonNull Call<UserListsResult> call, @NonNull Response<UserListsResult> response) {
+                if (response.body() == null) {
+                    Log.e(TAG, "Error getting lists: no response body");
+                    return;
+                }
+                watchLists.postValue(response.body().getResults());
+                Log.i(TAG, "Received lists");
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UserListsResult> call, @NonNull Throwable t) {
+                Log.e(TAG, "Error getting lists: " + t.getMessage());
             }
         });
     }

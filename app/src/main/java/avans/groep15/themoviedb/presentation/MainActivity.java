@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
 
     private SearchView searchView;
     private ArrayList<Movie> movies;
-    private final static String TAG = MainActivity.class.getSimpleName();
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
     private AccountRepository accountRepository = AccountRepository.getInstance();

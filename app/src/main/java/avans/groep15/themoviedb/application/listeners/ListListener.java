@@ -7,6 +7,6 @@ import java.util.List;
 import avans.groep15.themoviedb.domain.WatchList;
 
 public interface ListListener extends LifecycleOwner {
-    void listAdded(List<WatchList> lists);
+    void receiveLists(List<WatchList> lists);
     void onFailure();
 }

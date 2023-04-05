@@ -11,24 +11,24 @@ import avans.groep15.themoviedb.application.listeners.ListListener;
 import avans.groep15.themoviedb.datastorage.ListRepository;
 import avans.groep15.themoviedb.domain.WatchList;
 
-public class CreateListTask extends AsyncTask<WatchList, Void, Void> {
-    private final static String TAG = CreateListTask.class.getSimpleName();
+public class GetListsTask extends AsyncTask<Void, Void, Void> {
+    private final static String TAG = GetListsTask.class.getSimpleName();
     private final ListRepository repository = ListRepository.getInstance();
 
-    public CreateListTask(ListListener listListener) {
+    public GetListsTask(ListListener listListener) {
         this.repository.getWatchListObservable().observe(listListener, new Observer<List<WatchList>>() {
             @Override
-            public void onChanged(List<WatchList> lists) {
-                Log.d(TAG, "List added");
-                listListener.receiveLists(lists);
+            public void onChanged(List<WatchList> success) {
+
+                listListener.receiveLists(success);
             }
         });
     }
 
     @Override
-    protected Void doInBackground(WatchList... watchLists) {
-        Log.d(TAG, "Adding list");
-        repository.postWatchLists(watchLists[0]);
+    protected Void doInBackground(Void... voids) {
+        Log.d(TAG, "Getting lists");
+        repository.getWatchLists();
         return null;
     }
 }
