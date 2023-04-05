@@ -59,46 +59,186 @@ public class MovieActivity extends AppCompatActivity {
         String posterUrl = "https://image.tmdb.org/t/p/original/" + posterPath;
         Glide.with(this)
                 .load(posterUrl)
+                .error(R.drawable.ic_unknown)
                 .into(moviePoster);
 
 
-movieGenre.setText(intent.getStringExtra("MovieGenre"));
-
+        movieGenre.setText(intent.getStringExtra("MovieGenre"));
 
 
         movieRating.setText("Rating: " + intent.getStringExtra("MovieRating"));
 
-
-
-        //For age in numbers
-//        String age = "";
-//        if (intent.getStringExtra("MovieAge").equalsIgnoreCase("true")) {
-//            age = "18+";
-//        } else {
-//            age = "All ages";
-//        }
-
-
         movieAge.setText("18+: " + intent.getStringExtra("MovieAge"));
 
-        String movieRelease = intent.getStringExtra("MovieRelease");
-        SimpleDateFormat inputDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
-        SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-        if (movieRelease != null) {
-            Date date = null;
-            try {
-                date = inputDateFormat.parse(movieRelease.toString());
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-            String formattedDate = outputDateFormat.format(date);
-            movieReleaseDate.setText("Release Date: " + formattedDate);
-        } else {
-            movieReleaseDate.setText("Release Date: N/A");
+        String releaseDateString = intent.getStringExtra("MovieRelease");
+        movieReleaseDate.setText(releaseDateString);
+
+
+        movieNativeLanguage.setText("Language: " + getLanguageName(intent.getStringExtra("MovieNativeLanguage")));
+
+
+    }
+
+    public static String getLanguageName(String languageCode) {
+        switch (languageCode) {
+            case "af":
+                return "Afrikaans";
+            case "am":
+                return "Amharic";
+            case "ar":
+                return "Arabic";
+            case "az":
+                return "Azerbaijani";
+            case "bg":
+                return "Bulgarian";
+            case "bn":
+                return "Bengali";
+            case "bs":
+                return "Bosnian";
+            case "ca":
+                return "Catalan";
+            case "cs":
+                return "Czech";
+            case "cy":
+                return "Welsh";
+            case "da":
+                return "Danish";
+            case "de":
+                return "German";
+            case "el":
+                return "Greek";
+            case "en":
+                return "English";
+            case "eo":
+                return "Esperanto";
+            case "es":
+                return "Spanish";
+            case "et":
+                return "Estonian";
+            case "eu":
+                return "Basque";
+            case "fa":
+                return "Persian";
+            case "fi":
+                return "Finnish";
+            case "fr":
+                return "French";
+            case "ga":
+                return "Irish";
+            case "gl":
+                return "Galician";
+            case "gu":
+                return "Gujarati";
+            case "he":
+                return "Hebrew";
+            case "hi":
+                return "Hindi";
+            case "hr":
+                return "Croatian";
+            case "ht":
+                return "Haitian";
+            case "hu":
+                return "Hungarian";
+            case "hy":
+                return "Armenian";
+            case "id":
+                return "Indonesian";
+            case "is":
+                return "Icelandic";
+            case "it":
+                return "Italian";
+            case "ja":
+                return "Japanese";
+            case "jv":
+                return "Javanese";
+            case "ka":
+                return "Georgian";
+            case "kk":
+                return "Kazakh";
+            case "km":
+                return "Khmer";
+            case "kn":
+                return "Kannada";
+            case "ko":
+                return "Korean";
+            case "ku":
+                return "Kurdish";
+            case "ky":
+                return "Kyrgyz";
+            case "la":
+                return "Latin";
+            case "lb":
+                return "Luxembourgish";
+            case "lo":
+                return "Lao";
+            case "lt":
+                return "Lithuanian";
+            case "lv":
+                return "Latvian";
+            case "mk":
+                return "Macedonian";
+            case "ml":
+                return "Malayalam";
+            case "mn":
+                return "Mongolian";
+            case "mr":
+                return "Marathi";
+            case "ms":
+                return "Malay";
+            case "mt":
+                return "Maltese";
+            case "my":
+                return "Burmese";
+            case "ne":
+                return "Nepali";
+            case "nl":
+                return "Dutch";
+            case "no":
+                return "Norwegian";
+            case "pa":
+                return "Punjabi";
+            case "pl":
+                return "Polish";
+            case "ps":
+                return "Pashto";
+            case "pt":
+                return "Portuguese";
+            case "ro":
+                return "Romanian";
+            case "ru":
+                return "Russian";
+            case "tg":
+                return "Tajik";
+            case "tr":
+                return "Turkish";
+            case "sv":
+                return "Swedish";
+            case "th":
+                return "Thai";
+            case "uk":
+                return "Ukrainian";
+            case "sr":
+                return "Serbian";
+            case "ta":
+                return "Tamil";
+            case "te":
+                return "Telugu";
+            case "ur":
+                return "Urdu";
+            case "sk":
+                return "Slovak";
+            case "sl":
+                return "Slovenian";
+            case "sw":
+                return "Swahili";
+            case "zu":
+                return "Zulu";
+            case "xh":
+                return "Xhosa";
+            case "so":
+                return "Somali";
+            default:
+                return languageCode;
         }
-
-        movieNativeLanguage.setText("Language: " + intent.getStringExtra("MovieNativeLanguage"));
-
-
     }
 }

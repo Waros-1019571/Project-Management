@@ -1,4 +1,4 @@
-package avans.groep15.themoviedb.domain.datanase;
+package avans.groep15.themoviedb.datastorage.database;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -13,6 +13,10 @@ import avans.groep15.themoviedb.domain.Movie;
 public interface MovieDao {
     @Query("SELECT * FROM movie")
     List<Movie> getAllMovies();
+
+
+    @Query("DELETE FROM movie")
+    void deleteMovies();
 
     @Insert
     void insert(Movie movie);

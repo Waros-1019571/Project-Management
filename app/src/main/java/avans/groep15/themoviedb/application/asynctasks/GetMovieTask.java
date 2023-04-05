@@ -11,8 +11,8 @@ import java.util.List;
 import avans.groep15.themoviedb.application.listeners.MovieListener;
 import avans.groep15.themoviedb.datastorage.MovieRepository;
 import avans.groep15.themoviedb.domain.Movie;
-import avans.groep15.themoviedb.domain.datanase.MovieDao;
-import avans.groep15.themoviedb.domain.datanase.MovieDatabase;
+import avans.groep15.themoviedb.datastorage.database.MovieDao;
+import avans.groep15.themoviedb.datastorage.database.MovieDatabase;
 
 public class GetMovieTask extends AsyncTask<Void, Void, List<Movie>> {
     private final static String TAG = GetMovieTask.class.getSimpleName();

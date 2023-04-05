@@ -25,14 +25,19 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="avans.groep15.themoviedb.presentation.LoginActivity" />
-        <activity android:name="avans.groep15.themoviedb.presentation.AccountActivity" />
+        <activity android:name="avans.groep15.themoviedb.presentation.LoginActivity"
+            android:parentActivityName=".presentation.MainActivity"
+            />
+        <activity android:name="avans.groep15.themoviedb.presentation.AccountActivity"
+            />
         <activity android:name=".presentation.AddListActivity" />
-        <activity android:name=".presentation.MovieActivity" />
+        <activity android:name=".presentation.MovieActivity"
+            android:parentActivityName=".presentation.MainActivity"/>
+        <activity android:name=".presentation.SettingsActivity"
+            android:parentActivityName=".presentation.MainActivity"/>
     </application>
 
 </manifest>

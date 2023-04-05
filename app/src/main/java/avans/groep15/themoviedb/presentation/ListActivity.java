@@ -44,8 +44,7 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
-        ///GET WATCHLIST FROM API
-        //CODE FOR THAT
+
 
 
 
@@ -63,7 +62,7 @@ public class ListActivity extends AppCompatActivity {
         tempList.add(list1);
         tempList.add(list2);
 
-        //MORE LOG A LIKES
+
         List<Movie> movies = list2.getMovies();
         for (Movie movie : movies) {
             System.out.println("Movie: " + movie.getOriginal_title() + " - " + movie.getVote_average());

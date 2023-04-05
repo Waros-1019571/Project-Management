@@ -90,14 +90,14 @@
 
             <TextView
                 android:id="@+id/text_view_mReleaseDate"
-                android:layout_width="105dp"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_view_mAge"
                 android:hint="release date" />
 
             <TextView
                 android:id="@+id/text_view_mNativeLanguage"
-                android:layout_width="105dp"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_view_mReleaseDate"
                 android:text="Native language" />

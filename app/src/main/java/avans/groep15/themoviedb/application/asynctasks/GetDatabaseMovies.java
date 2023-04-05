@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 
 import avans.groep15.themoviedb.domain.Movie;
-import avans.groep15.themoviedb.domain.datanase.MovieDatabase;
+import avans.groep15.themoviedb.datastorage.database.MovieDatabase;
 
 public class GetDatabaseMovies extends AsyncTask<Void, Void, List<Movie>> {
     private MovieDatabase database;

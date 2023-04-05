@@ -125,7 +125,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 intent.putExtra("MovieGenre", (listString));
                 intent.putExtra("MovieRating", ("" + movie.getVote_average()));
                 intent.putExtra("MovieAge", ("" + movie.isAdult()));
-                intent.putExtra("MovieRelease", ("" + movie.getRelease_date()));
+                intent.putExtra("MovieRelease", ("" + holder.DateTextView.getText()));
                 intent.putExtra("MovieNativeLanguage", ("" + movie.getOriginal_language()));
                 intent.putExtra("MovieActor", ("" + movie.getActors()));
                 context.startActivity(intent);

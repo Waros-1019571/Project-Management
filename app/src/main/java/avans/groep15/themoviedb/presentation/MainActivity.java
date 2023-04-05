@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +19,6 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +27,7 @@ import avans.groep15.themoviedb.application.asynctasks.GetMovieTask;
 import avans.groep15.themoviedb.application.listeners.MovieListener;
 import avans.groep15.themoviedb.datastorage.AccountRepository;
 import avans.groep15.themoviedb.domain.Movie;
-import avans.groep15.themoviedb.domain.datanase.MovieDatabase;
+import avans.groep15.themoviedb.datastorage.database.MovieDatabase;
 
 public class MainActivity extends AppCompatActivity implements MovieListener {
 
@@ -62,7 +60,8 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
                 startActivity(listIntent);
                 return true;
             case R.id.settings:
-                // Handle Settings click
+                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                startActivity(settingsIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -82,20 +81,23 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
 
         if (isConnected()) {
             //IF INTERNET --> API
-            System.out.println("I have VERYYYYYYYYYYYYYYYYYYYYYY Internet");
+            Log.i("Internet", "Internet connection found");
             new GetMovieTask(this, this).execute();
         } else {
             //NO INTERNET --> DATABASE
-            System.out.println("I have NOOOOOOOOOOOOOOOOOOOOOOOO internet");
+            Log.i("Internet", "No internet connection found");
             new Thread(() -> {
-                List<Movie> localMovies = getMoviesFromDatabase();
+
+                List<Movie> localMovies = new ArrayList<>();
+                localMovies = getMoviesFromDatabase();
+                List<Movie> finalLocalMovies = localMovies;
                 runOnUiThread(() -> {
-                    if (localMovies.isEmpty()) {
+                    if (finalLocalMovies.isEmpty()) {
                         Toast.makeText(this, "No movies found", Toast.LENGTH_SHORT).show();
                     } else {
-                        System.out.println("ADDING MOVIES FROM DATABASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        Log.i("InsertingDatabase", "Inserting movies from database");
                         // If there are movies in the database, show them in the RecyclerView
-                        movies.addAll(localMovies);
+                        movies.addAll(finalLocalMovies);
                         movieAdapter.notifyDataSetChanged();
                     }
                 });
@@ -135,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
 
     private List<Movie> getMoviesFromDatabase() {
         List<Movie> movies = new ArrayList<>();
+
         // Retrieve movies from the database
         try {
             movies = MovieDatabase.getInstance(this).movieDao().getAllMovies();

@@ -1,4 +1,4 @@
-package avans.groep15.themoviedb.domain.datanase;
+package avans.groep15.themoviedb.datastorage.database;
 
 import android.content.Context;
 
