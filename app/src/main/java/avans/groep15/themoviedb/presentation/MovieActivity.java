@@ -102,12 +102,16 @@ public class MovieActivity extends AppCompatActivity implements StatusListener {
             } catch (ParseException e) {
                 try {
                     date = outputDateFormat.parse(movieRelease.toString());
-                } catch (ParseException ee) {
-                    throw new RuntimeException(ee);
+                } catch (ParseException ignore) {
                 }
             }
-            String formattedDate = outputDateFormat.format(date);
-            movieReleaseDate.setText("Release Date: " + formattedDate);
+            String formattedDate = "Release Date: ";
+            if (date != null) {
+                formattedDate += outputDateFormat.format(date);
+            } else {
+                formattedDate += "N/A";
+            }
+            movieReleaseDate.setText(formattedDate);
         } else {
             movieReleaseDate.setText("Release Date: N/A");
         }
