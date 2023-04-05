@@ -3,13 +3,10 @@ package avans.groep15.themoviedb.presentation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -26,7 +23,6 @@ public class AccountActivity extends AppCompatActivity implements LogOutListener
 
     private final ListRepository listRepository = ListRepository.getInstance();
     private TextView usernameLoggedIn;
-    private ImageView avatarLoggedIn;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,9 +31,6 @@ public class AccountActivity extends AppCompatActivity implements LogOutListener
         this.usernameLoggedIn = findViewById(R.id.usernameLoggedIn);
         String username = AccountRepository.getInstance().getAccountObservable().getValue().getUsername();
         this.usernameLoggedIn.setText(username);
-
-        this.avatarLoggedIn = findViewById(R.id.AvatarLoggedIn);
-        Glide.with(this).load(R.drawable.ic_unknown).into(avatarLoggedIn);
 
         List<WatchList> watchLists = listRepository.getWatchListObservable().getValue();
         if (watchLists == null || watchLists.size() == 0) {

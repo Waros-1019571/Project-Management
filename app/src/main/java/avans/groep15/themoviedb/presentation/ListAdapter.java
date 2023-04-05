@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +60,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
 
                 //PARTS TO GIVE WITH INTENT
+                intent.putExtra("listId", watchList.getId());
                 intent.putExtra("listTitle", watchList.getName());
                 intent.putExtra("listDescription", watchList.getDescription());
                 intent.putExtra("movieList", tempList);
