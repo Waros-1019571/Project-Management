@@ -1,6 +1,7 @@
 package avans.groep15.themoviedb.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ShareCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,10 +35,17 @@ public class WatchListActivity extends AppCompatActivity {
 
         ArrayList<Movie> movies = (ArrayList<Movie>) intent.getSerializableExtra("movieList");
 
-
-
         listAdapterDetails = new MovieAdapter(this, movies);
         recyclerViewList.setAdapter(listAdapterDetails);
         recyclerViewList.setLayoutManager(new GridLayoutManager(this, 2));
+
+        int listId = intent.getIntExtra("listId", 0);
+        if (listId != 0) {
+            new ShareCompat.IntentBuilder(this)
+                    .setType("text/plain")
+                    .setChooserTitle("Share URL")
+                    .setText("http://www.themoviedb.org/list/" + intent.getIntExtra("listId", 0))
+                    .startChooser();
+        }
     }
 }

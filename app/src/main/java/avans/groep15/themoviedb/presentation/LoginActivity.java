@@ -20,7 +20,7 @@ import avans.groep15.themoviedb.domain.LoginData;
 
 public class LoginActivity extends AppCompatActivity implements TokenListener, LoginListener {
 
-    private final static String TAG = MainActivity.class.getSimpleName();
+    private final static String TAG = LoginActivity.class.getSimpleName();
     private final AccountRepository accountRepository = AccountRepository.getInstance();
     private String token = "";
 

@@ -25,6 +25,7 @@
             <item>Horror</item>
             <item>Thriller</item>
             <item>Romance</item>
+        <item>All Movies</item>
         </string-array>
 
 </resources>

@@ -26,13 +26,13 @@ import avans.groep15.themoviedb.application.listeners.StatusListener;
 import avans.groep15.themoviedb.datastorage.AccountRepository;
 import avans.groep15.themoviedb.datastorage.ListRepository;
 import avans.groep15.themoviedb.domain.AddMovie;
+import avans.groep15.themoviedb.domain.Languages;
 import avans.groep15.themoviedb.domain.WatchList;
 
 public class MovieActivity extends AppCompatActivity implements StatusListener {
 
     private final ListRepository listRepository = ListRepository.getInstance();
     private final AccountRepository accountRepository = AccountRepository.getInstance();
-
 
     private final SimpleDateFormat inputDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
     private final SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
@@ -79,23 +79,20 @@ public class MovieActivity extends AppCompatActivity implements StatusListener {
         String posterUrl = "https://image.tmdb.org/t/p/original/" + posterPath;
         Glide.with(this)
                 .load(posterUrl)
+                .error(R.drawable.ic_unknown)
                 .into(moviePoster);
 
         movieGenre.setText(intent.getStringExtra("MovieGenre"));
         movieRating.setText("Rating: " + intent.getStringExtra("MovieRating"));
 
-
-
-        //For age in numbers
-//        String age = "";
-//        if (intent.getStringExtra("MovieAge").equalsIgnoreCase("true")) {
-//            age = "18+";
-//        } else {
-//            age = "All ages";
-//        }
-
-
         movieAge.setText("18+: " + intent.getStringExtra("MovieAge"));
+
+        String releaseDateString = intent.getStringExtra("MovieRelease");
+        movieReleaseDate.setText(releaseDateString);
+
+
+        movieNativeLanguage.setText("Language: " + Languages.getLanguageName(intent.getStringExtra("MovieNativeLanguage")));
+
 
         String movieRelease = intent.getStringExtra("MovieRelease");
         if (movieRelease != null) {
@@ -103,15 +100,17 @@ public class MovieActivity extends AppCompatActivity implements StatusListener {
             try {
                 date = inputDateFormat.parse(movieRelease.toString());
             } catch (ParseException e) {
-                throw new RuntimeException(e);
+                try {
+                    date = outputDateFormat.parse(movieRelease.toString());
+                } catch (ParseException ee) {
+                    throw new RuntimeException(ee);
+                }
             }
             String formattedDate = outputDateFormat.format(date);
             movieReleaseDate.setText("Release Date: " + formattedDate);
         } else {
             movieReleaseDate.setText("Release Date: N/A");
         }
-
-        movieNativeLanguage.setText("Language: " + intent.getStringExtra("MovieNativeLanguage"));
 
         setWatchLists();
     }

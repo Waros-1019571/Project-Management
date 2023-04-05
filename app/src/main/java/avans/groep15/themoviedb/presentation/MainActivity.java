@@ -6,13 +6,17 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -23,14 +27,19 @@ import avans.groep15.themoviedb.application.asynctasks.GetMovieTask;
 import avans.groep15.themoviedb.application.listeners.MovieListener;
 import avans.groep15.themoviedb.datastorage.AccountRepository;
 import avans.groep15.themoviedb.domain.Movie;
+import avans.groep15.themoviedb.datastorage.database.MovieDatabase;
 
 public class MainActivity extends AppCompatActivity implements MovieListener {
+
+    private final static String TAG = MainActivity.class.getSimpleName();
 
     private SearchView searchView;
     private ArrayList<Movie> movies;
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
     private AccountRepository accountRepository = AccountRepository.getInstance();
+    private String selectedCategory = "";
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -52,7 +61,8 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
                 startActivity(listIntent);
                 return true;
             case R.id.settings:
-                // Handle Settings click
+                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                startActivity(settingsIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -63,8 +73,60 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new GetMovieTask(this).execute();
+
+        movies = new ArrayList<>();
+        recyclerView = findViewById(R.id.recyclerView);
+        movieAdapter = new MovieAdapter(this, movies);
+        recyclerView.setAdapter(movieAdapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
+        if (isConnected()) {
+            //IF INTERNET --> API
+            Log.i("Internet", "Internet connection found");
+            new GetMovieTask(this, this).execute();
+        } else {
+            //NO INTERNET --> DATABASE
+            Log.i("Internet", "No internet connection found");
+            new Thread(() -> {
+
+                List<Movie> localMovies = new ArrayList<>();
+                localMovies = getMoviesFromDatabase();
+                List<Movie> finalLocalMovies = localMovies;
+                runOnUiThread(() -> {
+                    if (finalLocalMovies.isEmpty()) {
+                        Toast.makeText(this, "No movies found", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.i("InsertingDatabase", "Inserting movies from database");
+                        // If there are movies in the database, show them in the RecyclerView
+                        movies.addAll(finalLocalMovies);
+                        movieAdapter.notifyDataSetChanged();
+                    }
+                });
+            }).start();
+        }
     }
+
+    // This method checks if there is internet connectivity
+    private boolean isConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        boolean connected = (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
+        return connected;
+    }
+
+    private List<Movie> getMoviesFromDatabase() {
+        List<Movie> movies = new ArrayList<>();
+        // Retrieve movies from the database
+        try {
+            movies = MovieDatabase.getInstance(this).movieDao().getAllMovies();
+            Log.i(TAG, "DATABASE: " + movies);
+        } catch (Exception e) {
+            Log.e(TAG, "Error retrieving movies from database", e);
+        }
+        return movies;
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -97,26 +159,32 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
                 return false;
             }
         });
+
+        Spinner spinner = findViewById(R.id.genreSpinner);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedCategory = parent.getItemAtPosition(position).toString();
+                movieAdapter.filterByCategory(selectedCategory);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selectedCategory = "";
+                movieAdapter.filterByCategory(selectedCategory);
+            }
+        });
     }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String genre = parent.getItemAtPosition(position).toString();
-        List<Movie> filteredMovies = filterMoviesByGenre(genre);
-        movieAdapter.setMovies(filteredMovies); // Set the filtered movies on the adapter
+
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        // Do nothing
-    }
 
-    private List<Movie> filterMoviesByGenre(String genre) {
-        List<Movie> filteredMovies = new ArrayList<>();
-        for (Movie movie : movies) {
-            if (movie.getGenres().contains(genre)) {
-                filteredMovies.add(movie);
-            }
-        }
-        return filteredMovies;
     }
 }
+
+
