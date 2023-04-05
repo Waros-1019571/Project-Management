@@ -9,7 +9,7 @@ import avans.groep15.themoviedb.application.listeners.TokenListener;
 import avans.groep15.themoviedb.datastorage.AccountRepository;
 
 public class TokenTask extends AsyncTask<Void, Void, Void> {
-    private final static String TAG = LoginTask.class.getSimpleName();
+    private final static String TAG = TokenTask.class.getSimpleName();
     private final AccountRepository repository = AccountRepository.getInstance();
 
     public TokenTask (TokenListener tokenListener) {

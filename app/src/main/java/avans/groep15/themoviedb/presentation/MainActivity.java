@@ -103,14 +103,14 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String genre = parent.getItemAtPosition(position).toString();
         List<Movie> filteredMovies = filterMoviesByGenre(genre);
-        movieAdapter.setMeals(filteredMovies); // Set the filtered movies on the adapter
+        movieAdapter.setMovies(filteredMovies); // Set the filtered movies on the adapter
     }
-
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         // Do nothing
     }
+
     private List<Movie> filterMoviesByGenre(String genre) {
         List<Movie> filteredMovies = new ArrayList<>();
         for (Movie movie : movies) {

@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import avans.groep15.themoviedb.domain.Account;
 import avans.groep15.themoviedb.domain.LoginData;
 import avans.groep15.themoviedb.domain.responses.LoginResult;
 import avans.groep15.themoviedb.domain.responses.SessionResult;
@@ -18,15 +19,15 @@ public class AccountRepository extends Repository {
     private static volatile AccountRepository instance;
     private final MutableLiveData<String> token;
     private final MutableLiveData<Boolean> hasLoggedIn;
-    private final MutableLiveData<String> username;
     private final MutableLiveData<String> sessionId;
+    private final MutableLiveData<Account> account;
 
     // Singleton pattern
     private AccountRepository() {
         token = new MutableLiveData<>();
         hasLoggedIn = new MutableLiveData<>();
-        username = new MutableLiveData<>();
         sessionId = new MutableLiveData<>();
+        account = new MutableLiveData<>();
     }
 
     public static AccountRepository getInstance() {
@@ -44,12 +45,12 @@ public class AccountRepository extends Repository {
         return this.hasLoggedIn;
     }
 
-    public LiveData<String> getUsernameObservable() {
-        return this.username;
-    }
-
     public LiveData<String> getSessionIdObservable() {
         return this.sessionId;
+    }
+
+    public LiveData<Account> getAccountObservable() {
+        return this.account;
     }
 
     public void getToken() {
@@ -90,8 +91,6 @@ public class AccountRepository extends Repository {
                     hasLoggedIn.setValue(false);
                     return;
                 }
-                hasLoggedIn.setValue(true);
-                username.setValue(loginData.getUsername());
                 getSessionId();
                 Log.i(TAG, "Logged in");
             }
@@ -118,6 +117,7 @@ public class AccountRepository extends Repository {
                     return;
                 }
                 sessionId.setValue(response.body().getSession_id());
+                getAccount();
                 Log.i(TAG, "Received session ID");
             }
 
@@ -129,11 +129,36 @@ public class AccountRepository extends Repository {
         });
     }
 
+    public void getAccount() {
+        Log.d(TAG, "Getting account");
+        ApiService api = super.getApiService();
+        Call<Account> call = api.getUserId(getApiKey(), getSessionIdObservable().getValue());
+
+        call.enqueue(new Callback<Account>() {
+            @Override
+            public void onResponse(@NonNull Call<Account> call, @NonNull Response<Account> response) {
+                if (response.body() == null) {
+                    Log.e(TAG, "Error getting account: no response body");
+                    sessionId.setValue(null);
+                    return;
+                }
+                account.postValue(response.body());
+                hasLoggedIn.setValue(true);
+                Log.i(TAG, "Received account");
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Account> call, @NonNull Throwable t) {
+                Log.e(TAG, "Error getting account: " + t.getMessage());
+                sessionId.setValue(null);
+            }
+        });
+    }
+
     public void performLogOut() {
         token.postValue(null);
         hasLoggedIn.postValue(false);
-        username.postValue(null);
         sessionId.postValue(null);
+        account.postValue(null);
     }
-
 }

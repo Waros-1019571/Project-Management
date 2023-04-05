@@ -9,7 +9,7 @@ import avans.groep15.themoviedb.application.listeners.LogOutListener;
 import avans.groep15.themoviedb.datastorage.AccountRepository;
 
 public class LogOutTask extends AsyncTask<Void, Void, Void> {
-    private final static String TAG = LoginTask.class.getSimpleName();
+    private final static String TAG = LogOutTask.class.getSimpleName();
     private final AccountRepository repository = AccountRepository.getInstance();
 
     public LogOutTask(LogOutListener logOutListener) {

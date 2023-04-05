@@ -1,6 +1,8 @@
 package avans.groep15.themoviedb.domain;
 
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,5 +60,11 @@ public class WatchList {
 
     public void addMovie(Movie movie) {
         movies.add(movie);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return this.name;
     }
 }

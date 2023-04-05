@@ -2,8 +2,10 @@ package avans.groep15.themoviedb.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,17 +23,14 @@ import avans.groep15.themoviedb.domain.responses.MovieResult;
 
 public class ListActivity extends AppCompatActivity {
 
-    private ListRepository listRepository = ListRepository.getInstance();
+    private final ListRepository listRepository = ListRepository.getInstance();
     private final static String TAG = MainActivity.class.getSimpleName();
-    private RecyclerView recyclerViewList;
-    private ListAdapter listAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        recyclerViewList = findViewById(R.id.recyclerViewList);
+        Log.d(TAG, "Loading watch lists");
 
         // Add onClick to add button
         FloatingActionButton actionButton = findViewById(R.id.addListButton);
@@ -44,35 +43,23 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
-        ///GET WATCHLIST FROM API
-        //CODE FOR THAT
+        loadDataIntoRecyclerView();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "Reloading watch lists");
+        loadDataIntoRecyclerView();
+    }
 
-
-
-        //CREATED TEMP LIST AND ADDED MOVIES --> SENDS TO LISTADAPTER
-        List<WatchList> tempList = new ArrayList<>();
-
-        WatchList list2 = new WatchList("List2", "Description");
-        list2.addMovie(new Movie("Title1", 10));
-
-        WatchList list1 = new WatchList("List 1", "Description");
-        list1.addMovie(new Movie("Title2", 9));
-        list1.addMovie(new Movie("Title3", 8));
-
-        tempList.add(list1);
-        tempList.add(list2);
-
-        //MORE LOG A LIKES
-        List<Movie> movies = list2.getMovies();
-        for (Movie movie : movies) {
-            System.out.println("Movie: " + movie.getOriginal_title() + " - " + movie.getVote_average());
+    private void loadDataIntoRecyclerView() {
+        List<WatchList> lists = listRepository.getWatchListObservable().getValue();
+        if (lists != null) {
+            RecyclerView recyclerViewList = findViewById(R.id.recyclerViewList);
+            ListAdapter listAdapter = new ListAdapter(this, lists);
+            recyclerViewList.setAdapter(listAdapter);
+            recyclerViewList.setLayoutManager(new LinearLayoutManager(this));
         }
-
-        recyclerViewList = findViewById(R.id.recyclerViewList);
-        //CHANGE TEMPLIST WITH MAIN LIST.
-        listAdapter = new ListAdapter(this, tempList);
-        recyclerViewList.setAdapter(listAdapter);
-        recyclerViewList.setLayoutManager(new LinearLayoutManager(this));
     }
 }
