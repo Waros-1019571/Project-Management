@@ -27,11 +27,12 @@ public class AccountActivity extends AppCompatActivity implements LogOutListener
 
         this.usernameLoggedIn = findViewById(R.id.usernameLoggedIn);
         String username = this.usernameLoggedIn.getText().toString();
-        username += ": " + AccountRepository.getInstance().getUsernameObservable().getValue();
+        username += AccountRepository.getInstance().getUsernameObservable().getValue();
         this.usernameLoggedIn.setText(username);
 
         this.avatarLoggedIn = findViewById(R.id.AvatarLoggedIn);
-        Glide.with(this).load(R.drawable.ic_unknown).into(avatarLoggedIn);
+
+
     }
 
     public void logOut(View view) {

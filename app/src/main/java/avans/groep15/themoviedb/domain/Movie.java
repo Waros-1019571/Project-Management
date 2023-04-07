@@ -4,6 +4,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
@@ -11,18 +14,26 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity(tableName = "movie")
 public class Movie implements Serializable {
+    @PrimaryKey(autoGenerate = true)
+    private int idid;
     private int id;
     private String original_title;
     private String overview;
     private boolean adult;
     private double vote_average;
     private String original_language;
+
+    @Ignore
     private Date release_date;
+
     private String poster_path;
+    @Ignore
     private List<Integer> genre_ids;
+
+    @Ignore
     private List<String> actors;
-    //   private ArrayList<Genre> genres;
     private String status; //Enum / boolean
     private boolean adult;
     private String original_language;
@@ -139,6 +150,8 @@ public class Movie implements Serializable {
     //Hardcoded genre from id
     public List<String> getGenreString() {
         List<String> genreNames = new ArrayList<>();
+        if (genre_ids != null) {
+
         for (int id : genre_ids) {
             String name;
             switch (id) {
@@ -204,6 +217,7 @@ public class Movie implements Serializable {
             }
             genreNames.add(name);
         }
+        }
         return genreNames;
     }
 
@@ -237,6 +251,15 @@ public class Movie implements Serializable {
 
     public void setGenre_ids(List<Integer> genre_ids) {
         this.genre_ids = genre_ids;
+    }
+
+
+    public int getIdid() {
+        return idid;
+    }
+
+    public void setIdid(int idid) {
+        this.idid = idid;
     }
 }
 

@@ -20,7 +20,7 @@ public class MovieRepository extends Repository {
     private static volatile MovieRepository instance;
     private final MutableLiveData<List<Movie>> movies;
 
-    private MovieRepository() {
+    public MovieRepository() {
         movies = new MutableLiveData<>();
     }
 
@@ -48,7 +48,13 @@ public class MovieRepository extends Repository {
                     return;
                 }
                 Collections.reverse(response.body().getResults());
+
+
+
                 movies.setValue(response.body().getResults());
+
+
+
                 Log.i(TAG, "Received list of popular movies");
             }
 
@@ -58,6 +64,7 @@ public class MovieRepository extends Repository {
             }
         });
     }
+
 
 
 }

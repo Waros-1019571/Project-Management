@@ -1,4 +1,18 @@
 package avans.groep15.themoviedb.presentation;
 
-public class SettingsActivity {
+import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import avans.groep15.themoviedb.R;
+import avans.groep15.themoviedb.application.asynctasks.TokenTask;
+
+public class SettingsActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_settings);
+
+
+    }
 }
